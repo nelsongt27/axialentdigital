@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecosistema HR Tech 2025 | Axialent Strategy</title>
+    <title>Ecosistema HR Culture Tech 2025 | Axialent Strategy</title>
     <style>
         * {
             margin: 0;
@@ -15,10 +15,9 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #333;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
-        /* Header Navigation */
         header {
             position: fixed;
             top: 0;
@@ -31,7 +30,7 @@
         }
 
         nav {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -62,250 +61,166 @@
             color: #667eea;
         }
 
-        /* Slide Container */
-        .presentation-container {
-            height: 100vh;
-            padding-top: 70px;
-            position: relative;
+        .presentation {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 0 2rem;
         }
 
         .slide {
             display: none;
-            height: calc(100vh - 70px);
-            padding: 3rem;
+            background: white;
+            border-radius: 20px;
+            padding: 4rem;
+            max-height: 85vh;
             overflow-y: auto;
-            animation: slideIn 0.5s ease-in-out;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            animation: fadeIn 0.5s;
         }
 
         .slide.active {
             display: block;
         }
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        .slide::-webkit-scrollbar {
+            width: 8px;
         }
 
-        .slide-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            padding: 3rem;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-            min-height: calc(100vh - 150px);
+        .slide::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
-            color: #667eea;
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 1.5rem;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
         }
 
         h2 {
-            color: #764ba2;
-            font-size: 1.8rem;
-            margin: 2rem 0 1rem 0;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #667eea;
         }
 
         h3 {
-            color: #667eea;
-            font-size: 1.4rem;
-            margin: 1.5rem 0 1rem 0;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            color: #764ba2;
         }
 
-        h4 {
-            color: #555;
-            font-size: 1.2rem;
-            margin: 1rem 0 0.5rem 0;
-        }
-
-        p {
-            line-height: 1.8;
-            margin-bottom: 1rem;
+        p, li {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
             color: #444;
-            font-size: 1.05rem;
         }
 
         ul {
-            margin: 1rem 0 1rem 2rem;
-            line-height: 1.8;
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         li {
-            margin-bottom: 0.5rem;
-            color: #444;
+            margin-bottom: 0.8rem;
         }
 
-        strong {
-            color: #667eea;
-            font-weight: 600;
-        }
-
-        .company-tag {
-            display: inline-block;
-            padding: 0.2rem 0.6rem;
-            margin: 0 0.3rem;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: white;
-            cursor: help;
-            position: relative;
-        }
-
-        .company-tag.cat-intelligence {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .company-tag.cat-coaching {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-
-        .company-tag.cat-learning {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-
-        .company-tag.cat-performance {
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-        }
-
-        .company-tag.cat-assessment {
-            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-            color: #333 !important;
-        }
-
-        .company-tag.cat-blended {
-            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            margin: 0 0.3rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .highlight-box {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            border-left: 5px solid #667eea;
-        }
-
-        .key-points {
-            background: linear-gradient(135deg, #fff5f5, #ffe9e9);
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            border-left: 5px solid #f5576c;
-        }
-
-        /* Navigation Controls */
-        .slide-nav {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
+        .controls {
             display: flex;
-            gap: 1rem;
+            justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.95);
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .btn {
             padding: 1rem 2rem;
-            border-radius: 50px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            z-index: 900;
-        }
-
-        .nav-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
             border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            cursor: pointer;
+            border-radius: 50px;
+            font-size: 1rem;
             font-weight: 600;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        .nav-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        .slide-counter {
-            font-weight: 600;
-            color: #667eea;
-            min-width: 80px;
-            text-align: center;
-        }
-
-        .slide-menu {
-            position: fixed;
-            right: 2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.95);
-            padding: 1rem;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            max-height: 70vh;
-            overflow-y: auto;
-            z-index: 900;
-        }
-
-        .slide-menu-item {
-            padding: 0.5rem 1rem;
-            margin: 0.3rem 0;
-            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.2s;
-            font-size: 0.85rem;
-            color: #555;
-        }
-
-        .slide-menu-item:hover {
-            background: #f0f0f0;
-        }
-
-        .slide-menu-item.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-indicator {
+            font-size: 1rem;
+            color: #667eea;
             font-weight: 600;
         }
 
         @media (max-width: 768px) {
-            .slide-content {
+            .presentation {
+                padding: 0 1rem;
+                margin-top: 80px;
+            }
+
+            .slide {
                 padding: 2rem 1.5rem;
+                max-height: 80vh;
             }
 
             h1 {
                 font-size: 1.8rem;
+                line-height: 1.1;
             }
 
-            .slide-menu {
-                display: none;
+            h2 {
+                font-size: 1.4rem;
             }
 
-            .nav-btn {
-                padding: 0.6rem 1rem;
+            h3 {
+                font-size: 1.2rem;
+            }
+
+            p, li {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            .nav-links {
+                gap: 1rem;
                 font-size: 0.9rem;
+            }
+
+            .controls {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn {
+                width: 100%;
             }
         }
     </style>
@@ -316,482 +231,157 @@
             <div class="logo">Axialent Strategy 2025</div>
             <ul class="nav-links">
                 <li><a href="index.html" class="active">Overview</a></li>
-                <li><a href="positioning map.hmtl">Strategic Map</a></li>
+                <li><a href="positioning-map.html">Strategic Map</a></li>
             </ul>
         </nav>
     </header>
 
-    <div class="presentation-container">
-        <!-- Slide 1: Título y Tesis Central -->
+    <div class="presentation">
+        <!-- Slide 1 -->
         <div class="slide active">
-            <div class="slide-content">
-                <h1>El Ecosistema de HR Tech, L&D y Culture: Mapa Estratégico 2025</h1>
-                <p style="font-size: 1.1rem; color: #764ba2; margin-bottom: 2rem;"><strong>Documento ejecutivo para liderazgo Axialent</strong></p>
-                
-                <h2>La Tesis Central</h2>
-                <p>La industria de cultura y desarrollo de liderazgo está en plena reconfiguración. Las líneas entre software, servicios profesionales y contenido se difuminan. <strong>El valor migra hacia quien controla la data y puede automatizar behavioral science a escala.</strong></p>
-                
-                <div class="highlight-box">
-                    <h3>Tres fuerzas simultáneas están redibujando el mapa:</h3>
-                    <ul>
-                        <li><strong>Consolidación acelerada</strong> (M&A de $400M-$1.4B en últimos 3 años)</li>
-                        <li><strong>AI + Behavioral Science</strong> creando ventajas imposibles de replicar</li>
-                        <li><strong>Blended models dominando</strong> sobre pure-play software o pure-play consulting</li>
-                    </ul>
-                </div>
+            <h1>El Ecosistema de HR Tech, L&D y Culture</h1>
+            <h2>Mapa Estratégico 2025</h2>
+            
+            <p style="margin-bottom: 2rem;"><em>Documento ejecutivo para liderazgo Axialent</em></p>
 
-                <p>A continuación presentamos un análisis detallado de <strong>23 empresas</strong> que representan el estado actual del ecosistema—desde unicornios tech-first (<span class="company-tag cat-intelligence">Culture Amp</span>, <span class="company-tag cat-coaching">BetterUp</span>) hasta consultoras tradicionales luchando con digitalización (<span class="company-tag cat-blended">MindGym</span>, <span class="company-tag cat-assessment">Table Group</span>), pasando por modelos híbridos exitosos (<span class="company-tag cat-coaching">Torch</span>, <span class="company-tag cat-learning">Hone</span>, <span class="company-tag cat-assessment">Denison</span>). El análisis revela patrones claros sobre qué estrategias funcionan, cuáles fallan, y dónde están las oportunidades sin explotar.</p>
-            </div>
+            <h3>La Tesis Central</h3>
+            
+            <p>La industria de cultura y desarrollo de liderazgo está en plena reconfiguración. Las líneas entre software, servicios profesionales y contenido se difuminan. <strong>El valor migra hacia quien controla la data y puede automatizar behavioral science a escala.</strong></p>
+
+            <p>Tres fuerzas simultáneas están redibujando el mapa:</p>
+            <ul>
+                <li><strong>Consolidación acelerada</strong> (M&A de $400M-$1.4B en últimos 3 años)</li>
+                <li><strong>AI + Behavioral Science</strong> creando ventajas imposibles de replicar</li>
+                <li><strong>Blended models dominando</strong> sobre pure-play software o pure-play consulting</li>
+            </ul>
+
+            <p>A continuación presentamos un análisis detallado de <strong>23 empresas</strong> que representan el estado actual del ecosistema—desde unicornios tech-first (Culture Amp, BetterUp) hasta consultoras tradicionales luchando con digitalización (MindGym, Table Group), pasando por modelos híbridos exitosos (Torch, Hone, Denison). El análisis revela patrones claros sobre qué estrategias funcionan, cuáles fallan, y dónde están las oportunidades sin explotar.</p>
         </div>
 
-        <!-- Slide 2: El Mapa -->
+        <!-- Slide 2 -->
         <div class="slide">
-            <div class="slide-content">
-                <h1>El Mapa: Cadena de Valor × Modelo de Negocio</h1>
-                
-                <h2>CADENA DE VALOR (Qué hacen)</h2>
-                <div class="highlight-box">
-                    <h3>1. DIAGNÓSTICO & INTELIGENCIA</h3>
-                    <p>Miden el estado actual de cultura, engagement, performance organizacional</p>
-                </div>
+            <h2>Diagnóstico & Inteligencia: La Batalla por la Data</h2>
 
-                <div class="highlight-box">
-                    <h3>2. DESARROLLO & APRENDIZAJE</h3>
-                    <p>Construyen capacidades vía coaching, learning, practice</p>
-                </div>
+            <p>El segmento de diagnóstico cultural está polarizándose entre dos extremos. Por un lado, Culture Amp ha construido el moat más formidable de la industria: con $257M en funding y valuación de $1.5B, procesan 1.4B employee responses que entrenan sus algoritmos. Esto les da network effects imposibles de replicar—mientras más empresas usan Culture Amp para benchmarking, más valiosa se vuelve la plataforma para todos. Su modelo ($8-15/employee/mes) es puramente self-service, apostando que los CHROs pueden interpretar data sin consultores.</p>
 
-                <div class="highlight-box">
-                    <h3>3. EJECUCIÓN & OPERACIONES</h3>
-                    <p>Embeben gestión de performance y feedback en el workflow diario</p>
-                </div>
+            <p>En contraste, Instill.ai representa la siguiente generación: en lugar de surveys periódicos, escuchan meetings en tiempo real y extraen behavioral intelligence pasiva. Su "Culture Operating System" no pregunta cómo se sienten los empleados—observa cómo se comportan. Lanzan AI coaching contextual inmediato basado en lo que detectan. Es fundamentalmente diferente: Culture Amp te dice qué pasó el mes pasado, Instill te alerta en el momento que algo cambia. Mientras Culture Amp necesitó una década construyendo su dataset, Instill apuesta que la próxima frontera es intelligence continua, no encuestas trimestrales.</p>
 
-                <h2 style="margin-top: 3rem;">MODELOS DE NEGOCIO (Cómo monetizan)</h2>
-                <div class="key-points">
-                    <p><strong>A. Pure SaaS</strong> → Software standalone, sin humanos</p>
-                    <p><strong>B. Blended Services</strong> → Tech + consultores, consultor core</p>
-                    <p><strong>C. Tech-Enabled Consulting</strong> → Consulting core, tech support</p>
-                </div>
-            </div>
+            <p>El espacio europeo muestra un modelo alternativo. Culture Factor Group opera con transparencia de pricing inusual para consulting (€16-24K/año portal completo), combinando assessments digitales con e-learning y benchmarking. Es menos agresivo que los unicornios US venture-backed, pero rentable y sostenible—lo que muchos VCs considerarían "crecimiento lento" pero que genera cash real sin quemar capital.</p>
+
+            <h3>Diagnóstico Blended: Tres Estrategias Distintas</h3>
+
+            <p>Cuando miramos las consultoras que mantienen humanos en el loop del diagnóstico, emergen tres modelos claramente diferenciados. <strong>Denison Consulting</strong>, con 35+ años y credenciales académicas sólidas, resolvió el problema de canibalización elegantemente: ofrecen un scorecard self-service automatizado para diagnósticos rápidos de bajo ticket, mientras reservan sus 13 assessments especializados con consultores para transformaciones profundas de alto ticket. No compiten consigo mismos—segmentan por complejidad y urgencia del cliente.</p>
+
+            <p><strong>Walking the Talk</strong> tomó el camino opuesto: sus herramientas digitales (Taylor Assessment, Culture Insights Survey) solo se venden dentro de engagements multi-año. El tech es lead magnet para consulting, no revenue stream independiente. Genera stickiness y data para el trabajo consultivo, pero nunca fue diseñado para standalone monetization.</p>
+
+            <p><strong>Hogan Assessment</strong> es el outlier fascinante: 30+ años, $100M+ revenue, 13M+ evaluaciones realizadas, presencia en 75% del Fortune 500—pero es pure-play assessment provider sin consulting attached. Su éxito valida que focus ultra-específico puede ganar una categoría completa. Mientras otros diversificaban a coaching y learning, Hogan perfeccionó assessments y pricing por volumen. El contraste con MindGym (que veremos después) es instructivo: Hogan eligió no expandirse, MindGym intentó hacer todo.</p>
         </div>
 
-        <!-- Slide 3: Diagnóstico & Inteligencia -->
+        <!-- Slide 3 -->
         <div class="slide">
-            <div class="slide-content">
-                <h1>Diagnóstico & Inteligencia: La Batalla por la Data</h1>
-                
-                <p>El segmento de diagnóstico cultural está polarizándose entre dos extremos. Por un lado, <span class="company-tag cat-intelligence">Culture Amp</span> <span class="badge" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">🦄 Unicornio</span> ha construido el moat más formidable de la industria: con $257M en funding y valuación de $1.5B, procesan 1.4B employee responses que entrenan sus algoritmos. Esto les da network effects imposibles de replicar—mientras más empresas usan Culture Amp para benchmarking, más valiosa se vuelve la plataforma para todos. Su modelo ($8-15/employee/mes) es puramente self-service, apostando que los CHROs pueden interpretar data sin consultores.</p>
+            <h2>Desarrollo & Aprendizaje: El Rango Completo</h2>
 
-                <div class="highlight-box">
-                    <h3><span class="company-tag cat-intelligence">Instill.ai</span> <span class="badge" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white;">⚡ Emergente</span>: La Siguiente Generación</h3>
-                    <p>En contraste, Instill.ai representa la siguiente generación: en lugar de surveys periódicos, escuchan meetings en tiempo real y extraen behavioral intelligence pasiva. Su "Culture Operating System" no pregunta cómo se sienten los empleados—observa cómo se comportan. Es fundamentalmente diferente: Culture Amp te dice qué pasó el mes pasado, Instill te alerta en el momento que algo cambia. Mientras Culture Amp necesitó una década construyendo su dataset, Instill apuesta que la próxima frontera es intelligence continua, no encuestas trimestrales.</p>
-                </div>
+            <p>El espacio de learning platforms muestra dos modelos casi opuestos. <strong>The Optimism Company</strong>, capitalizing Simon Sinek's brand, cobra $299/año por acceso individual a 250+ videos. Corporate subscriptions existen pero pricing es opaco. Funciona porque Sinek es celebrity—difícil replicar sin founder recognition comparable.</p>
 
-                <h3><span class="company-tag cat-intelligence">Culture Factor Group</span> <span class="badge" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: #333;">✅ Establecido</span>: El Modelo Europeo</h3>
-                <p>El espacio europeo muestra un modelo alternativo. Culture Factor Group opera con transparencia de pricing inusual para consulting (€16-24K/año portal completo), combinando assessments digitales con e-learning y benchmarking. Es menos agresivo que los unicornios US venture-backed, pero rentable y sostenible—lo que muchos VCs considerarían "crecimiento lento" pero que genera cash real sin quemar capital.</p>
-            </div>
+            <p><strong>Korn Ferry Learn</strong> representa el otro extremo: enterprise platform con role-based journeys, microlearning, todo respaldado por 50+ años de data consulting. Monetizan IP histórico vía self-serve. El gap es obvio: ninguna boutique comparable ha construido una learning platform B2B enterprise bien ejecutada enfocada en cultura. The Optimism Company es demasiado B2C/individual, Korn Ferry es gigante corporativo. Espacio abierto para quien lo tome bien.</p>
         </div>
 
-        <!-- Slide 4: Diagnóstico Blended -->
+        <!-- Slide 4 -->
         <div class="slide">
-            <div class="slide-content">
-                <h1>Diagnóstico Blended: Tres Estrategias Distintas</h1>
-                
-                <p>Cuando miramos las consultoras que mantienen humanos en el loop del diagnóstico, emergen tres modelos claramente diferenciados.</p>
+            <h2>Coaching at Scale: Cuatro Apuestas Diferentes</h2>
 
-                <div class="highlight-box">
-                    <h3><span class="company-tag cat-assessment">Denison Consulting</span> <span class="badge" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: #333;">✅ 35+ años</span></h3>
-                    <p>Denison Consulting, con 35+ años y credenciales académicas sólidas, resolvió el problema de canibalización elegantemente: ofrecen un scorecard self-service automatizado para diagnósticos rápidos de bajo ticket, mientras reservan sus 13 assessments especializados con consultores para transformaciones profundas de alto ticket. No compiten consigo mismos—segmentan por complejidad y urgencia del cliente.</p>
-                </div>
+            <p>El segmento de coaching revela cuatro tesis estratégicas en competencia directa, pero con diferencias fundamentales en qué problema resuelven.</p>
 
-                <div class="highlight-box">
-                    <h3><span class="company-tag cat-blended">Walking the Talk</span> <span class="badge" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: #333;">✅ UK consulting</span></h3>
-                    <p>Walking the Talk tomó el camino opuesto: sus herramientas digitales (Taylor Assessment, Culture Insights Survey) solo se venden dentro de engagements multi-año. El tech es lead magnet para consulting, no revenue stream independiente. Genera stickiness y data para el trabajo consultivo, pero nunca fue diseñado para standalone monetization.</p>
-                </div>
+            <h3>Torch.io — Coaching Atado a Estrategia Organizacional</h3>
+            <p><strong>Torch.io</strong> ($50M+ funding, endorsement de Josh Bersin) apuesta por coaching atado a estrategia organizacional. Su diferenciador es ser program-centric vs. coach-matching: mientras BetterUp y CoachHub optimizan emparejar individuos con coaches, Torch diseña programas estructurados (manager development, HIPO programs, DEI initiatives, AI readiness) que embeben coaching, mentoring y learning juntos, alineados con cultura de compañía y prioridades estratégicas. Su AI Copilot facilita practice entre sesiones vía simulaciones—practicas conversaciones difíciles con AI antes de tenerlas en la vida real. Pero el valor real está en organizational intelligence: capturan patrones across cohorts que revelan dónde el liderazgo está trabado. No miden "horas de coaching consumidas" sino si la capacidad organizacional está aumentando. Adquirieron Praxis Labs (VR diversity training) en 2025, señalando expansión a immersive learning. La crítica que hacen a competidores: BetterUp es "crecimiento sin estrategia" (wellness personal no business outcomes), CoachHub es "AI sin impacto" (matching sin contexto profundo).</p>
 
-                <div class="key-points">
-                    <h3><span class="company-tag cat-assessment">Hogan Assessment</span> <span class="badge" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: #333;">✅ $100M+ revenue</span>: El Outlier Fascinante</h3>
-                    <p>Hogan Assessment es el outlier fascinante: 30+ años, $100M+ revenue, 13M+ evaluaciones realizadas, presencia en 75% del Fortune 500—pero es pure-play assessment provider sin consulting attached. Su éxito valida que focus ultra-específico puede ganar una categoría completa. Mientras otros diversificaban a coaching y learning, Hogan perfeccionó assessments y pricing por volumen. El contraste con MindGym (que veremos después) es instructivo: Hogan eligió no expandirse, MindGym intentó hacer todo.</p>
-                </div>
-            </div>
+            <h3>Hone — Upskilling Masivo vía Live Learning</h3>
+            <p><strong>Hone</strong> representa una apuesta completamente diferente: upskilling masivo vía live learning. No son coaching 1:1—son clases live con grupos 8-12 personas facilitadas por expertos humanos. Tienen 100+ clases organizadas en pathways modulares desde ICs hasta VPs, cubriendo leadership skills y functional capabilities. El precio ($99-300/mes per-learner) es 40% vs. consulting tradicional, logrando democratizar quality development más allá de executives. Tech automatiza toda la logística (enrollment, scheduling global, rescheduling, analytics) mientras humanos manejan facilitation que requiere group dynamics, psychological safety, y peer learning. Recientemente lanzaron Hone AI (training, practice, coaching 24/7) entrenado en miles de horas de clases live—no generic AI. El valor: entire workforces pueden upskill con standardized curriculum research-backed, no depender de coach-dependent quality variable. Casos documentados muestran 90% sustained behavior change y 706% ROI (Calendly study). Ganan cuando clientes quieren simpler implementation y large content library ready-to-deploy vs. sophisticated program design que requiere setup.</p>
+
+            <h3>BetterUp y CoachHub — Scale Puro</h3>
+            <p><strong>BetterUp</strong> ($1.73B unicorn valuation) y <strong>CoachHub</strong> (3,500+ coaches, 90 países) representan scale puro democratizando acceso a coaching. BetterUp acumuló 17M data points que entrenan su AI Coach (lanzado enero 2025), apostando a "whole-person wellbeing" vs. trabajo-only—mental fitness, resilience, purpose. CoachHub ganó global reach (80+ lenguajes) y lanzó AIMY™ career coach 24/7 integrado en Microsoft Teams (febrero 2025). Ambos usan AI principalmente para matching y accesibilidad 24/7, menos para organizational intelligence o practice inmersivo. La crítica que reciben de Torch: son individual-centric (ayudan personas), no organization-centric (no transforman sistemas). Ganan por brand, scale, y economics—pueden ofrecer coaching a miles simultáneamente vs. boutiques limitadas por headcount de coaches.</p>
         </div>
 
-        <!-- Slide 5: Desarrollo & Aprendizaje -->
+        <!-- Slide 5 -->
         <div class="slide">
-            <div class="slide-content">
-                <h1>Desarrollo & Aprendizaje: El Rango Completo</h1>
-                
-                <p>El espacio de learning platforms muestra dos modelos casi opuestos.</p>
+            <h2>Tech-Enabled Consulting: Las Transiciones Difíciles</h2>
 
-                <div class="highlight-box">
-                    <h3><span class="company-tag cat-learning">The Optimism Company</span> <span class="badge" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: #333;">✅ Simon Sinek brand</span></h3>
-                    <p>The Optimism Company, capitalizing Simon Sinek's brand, cobra $299/año por acceso individual a 250+ videos. Corporate subscriptions existen pero pricing es opaco. Funciona porque Sinek es celebrity—difícil replicar sin founder recognition comparable.</p>
-                </div>
+            <h3>MindGym — El Caso de Estudio Más Revelador</h3>
+            <p><strong>MindGym</strong> es el caso de estudio más revelador sobre por qué digitalizar behavioral science es brutalmente difícil. £38.6M revenue después de 24 años, con 700+ behavioral science assets codificados en productos digitales: eWorkouts (9-min courses), Performa (1-on-1 AI coaching que usa CBT + SFT logrando 95% behavioral change en 1-2 semanas según claim), y Diagnostics (360°). Tienen IP sólida en behavioral science y evidencia de efectividad. Y sin embargo, 67% de su revenue sigue siendo delivery humano—solo ~£4M es digital. La transición de workshops tradicionales a tech-enabled es más difícil de lo que parece. Formaron partnership con Yoodli en 2024 (AI communication coach para practice conversaciones) en lugar de construir esa capacidad in-house—señal de que incluso con años intentándolo, building tech core capabilities es challenge masivo. MindGym muestra que tener behavioral science codificado no garantiza éxito digital—clientes siguen prefiriendo workshops facilitados por humanos vs. self-serve digital, incluso cuando el digital funciona.</p>
 
-                <div class="highlight-box">
-                    <h3><span class="company-tag cat-learning">Korn Ferry Learn</span> <span class="badge" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: #333;">✅ Corporate giant</span></h3>
-                    <p>Korn Ferry Learn representa el otro extremo: enterprise platform con role-based journeys, microlearning, todo respaldado por 50+ años de data consulting. Monetizan IP histórico vía self-serve.</p>
-                </div>
+            <h3>Culture Partners — Tech como Enabler</h3>
+            <p><strong>Culture Partners</strong> (herencia McChrystal) tiene herramientas impresionantes: Zodiak® gamification con 2.5M users, Culture Map/Results Map. Pero solo las venden dentro de consulting engagements. Generan stickiness y data baseline para el trabajo consultivo, no standalone revenue. Es tech como enabler, no como producto.</p>
 
-                <div class="key-points">
-                    <h3>La Oportunidad Sin Explotar</h3>
-                    <p><strong>El gap es obvio:</strong> ninguna boutique comparable ha construido una learning platform B2B enterprise bien ejecutada enfocada en cultura. The Optimism Company es demasiado B2C/individual, Korn Ferry es gigante corporativo. <strong>Espacio abierto para quien lo tome bien.</strong></p>
-                </div>
-            </div>
+            <h3>Table Group — La Alerta Estratégica</h3>
+            <p><strong>Table Group</strong> (Patrick Lencioni) es la alerta estratégica más clara: tienen brand recognition masivo, frameworks probados en bestsellers, Working Genius assessment (~$25/person) que podría escalar. Pero en vez de construir tech propio, hicieron partnership con Leadr para digitalización. Mientras competidores como Torch, Hone y BetterUp construían plataformas enterprise-grade, Table Group quedó dependiendo de third-party. Esto limita control sobre product roadmap, customer data, y user experience. Tienen 5-10 años de atraso digital vs. competidores que priorizaron platform desde el inicio. El costo de no invertir temprano.</p>
         </div>
 
-        <!-- Slide 6: Coaching at Scale - Parte 1 -->
+        <!-- Slide 6 -->
         <div class="slide">
-            <div class="slide-content">
-                <h1>Coaching at Scale: Cuatro Apuestas Diferentes</h1>
-                <p style="margin-bottom: 2rem;">El segmento de coaching revela cuatro tesis estratégicas en competencia directa, pero con diferencias fundamentales en qué problema resuelven.</p>
+            <h2>Performance Management: La Nueva Frontera</h2>
 
-                <div class="highlight-box">
-                    <h3><span class="company-tag cat-coaching">Torch.io</span> <span class="badge" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white;">⚡ $50M+ funding</span></h3>
-                    <h4>Coaching Atado a Estrategia Organizacional</h4>
-                    <p>Torch.io apuesta por <strong>coaching atado a estrategia organizacional</strong>. Su diferenciador es ser program-centric vs. coach-matching: mientras BetterUp y CoachHub optimizan emparejar individuos con coaches, Torch diseña programas estructurados (manager development, HIPO programs, DEI initiatives, AI readiness) que embeben coaching, mentoring y learning juntos, alineados con cultura de compañía y prioridades estratégicas.</p>
-                    
-                    <p>Su AI Copilot facilita practice entre sesiones vía simulaciones—practicas conversaciones difíciles con AI antes de tenerlas en la vida real. Pero el valor real está en organizational intelligence: capturan patrones across cohorts que revelan dónde el liderazgo está trabado. No miden "horas de coaching consumidas" sino si la capacidad organizacional está aumentando.</p>
-                    
-                    <p>Adquirieron <strong>Praxis Labs</strong> (VR diversity training) en 2025, señalando expansión a immersive learning. La crítica que hacen a competidores: BetterUp es "crecimiento sin estrategia" (wellness personal no business outcomes), CoachHub es "AI sin impacto" (matching sin contexto profundo).</p>
-                </div>
-            </div>
+            <p>El performance management tradicional requiere que los empleados salgan de su workflow diario para usar otra plataforma. <strong>Taito.ai</strong> representa un cambio fundamental: en lugar de crear otro SaaS standalone, viven completamente dentro de Slack. Un manager recibe un mensaje directo de Taito preguntando "¿Cómo fue el proyecto con María esta semana?". Responde ahí mismo en Slack. Taito captura ese feedback, lo organiza en el perfil de María, y cuando llega el 1:1 semanal, el manager ya tiene un resumen preparado con los temas clave. Los goals se trackean con check-ins automáticos vía Slack. Las evaluaciones de performance se construyen a partir de feedback continuo ya capturado, no requieren sesiones maratónicas de "recordar qué pasó en los últimos 6 meses".</p>
+
+            <p>Esto contrasta radicalmente con <strong>15Five</strong>, <strong>Lattice</strong>, y el módulo performance de <strong>Culture Amp</strong>—plataformas maduras que requieren login separado, adopción consciente, cambio de hábitos. Son categoría commodity diferenciando en UX e integrations con HRIS. Taito no compite con ellos frontalmente—apuesta que la próxima generación de herramientas no será "otra plataforma más" sino funcionalidad embebida donde la gente ya trabaja.</p>
+
+            <h3>Research & Insights: Adjacent pero Distinto</h3>
+            <p><strong>Remesh.ai</strong> opera en terreno adyacente pero fundamentalmente diferente: focus groups digitales y conversational surveys con AI para market research. Sus clientes (Nestlé, Barclays, Yum Brands) los usan para entender consumidores, no para transformar cultura interna. Es research de mercado vs. organizational transformation—mecánicas similares (AI analyzing text, async participation), propósito completamente distinto.</p>
         </div>
 
-        <!-- Slide 7: Coaching at Scale - Parte 2 -->
+        <!-- Slide 7 -->
         <div class="slide">
-            <div class="slide-content">
-                <h1>Coaching at Scale: Cuatro Apuestas Diferentes (cont.)</h1>
+            <h2>Patrones Estratégicos Identificados</h2>
 
-                <div class="highlight-box">
-                    <h3><span class="company-tag cat-learning">Hone</span> <span class="badge" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white;">⚡ $52M funding</span></h3>
-                    <h4>Upskilling Masivo vía Live Learning</h4>
-                    <p>Hone representa una apuesta completamente diferente: <strong>upskilling masivo vía live learning</strong>. No son coaching 1:1—son clases live con grupos 8-12 personas facilitadas por expertos humanos. Tienen 100+ clases organizadas en pathways modulares desde ICs hasta VPs, cubriendo leadership skills y functional capabilities.</p>
-                    
-                    <p>El precio ($99-300/mes per-learner) es 40% vs. consulting tradicional, logrando democratizar quality development más allá de executives. Tech automatiza toda la logística (enrollment, scheduling global, rescheduling, analytics) mientras humanos manejan facilitation que requiere group dynamics, psychological safety, y peer learning.</p>
-                    
-                    <p>Recientemente lanzaron <strong>Hone AI</strong> (training, practice, coaching 24/7) entrenado en miles de horas de clases live—no generic AI. El valor: entire workforces pueden upskill con standardized curriculum research-backed, no depender de coach-dependent quality variable. Casos documentados muestran 90% sustained behavior change y 706% ROI (Calendly study).</p>
-                    
-                    <p><strong>Ganan cuando:</strong> clientes quieren simpler implementation y large content library ready-to-deploy vs. sophisticated program design que requiere setup.</p>
-                </div>
-            </div>
+            <h3>1. Solo ~40% ha digitalizado verdaderamente</h3>
+            <p>De 15 consultoras comparables, solo 6 tienen productos digitales standalone. La mayoría mantiene consulting tradicional o tech-enabled pero humano-heavy.</p>
+
+            <h3>2. Assessments = puerta de entrada más común</h3>
+            <p>Todos los que digitalizaron empezaron por assessments. Razón: generan data que aumenta valor con escala (benchmarking).</p>
+
+            <h3>3. Blended Services domina sobre Pure SaaS</h3>
+            <p>MindGym después 24 años: solo 10% revenue digital. Denison lo hace bien: tiered model que no canibaliza premium consulting.</p>
+
+            <h3>4. AI + Behavioral Science = nuevo moat</h3>
+            <p>Culture Amp con 1.4B responses, BetterUp con 17M data points. Imposible replicar sin años de data collection. <strong>Ventaja de segundo movedor ya cerró.</strong></p>
+
+            <h3>5. Consolidación acelerada: M&A y partnerships estratégicos</h3>
+            <p>La industria está atravesando una fase de consolidación brutal que redefine el landscape competitivo. Las big tech están absorbiendo pure-plays de cultura: Microsoft compró Glint por $400M en 2018, Workday adquirió Peakon por $700M en 2021 y posteriormente SanaLabs (AI learning). Edenred (gigante francés de employee benefits) pagó $1.4B por Reward Gateway en 2023—la adquisición más grande del sector engagement/wellbeing. Las consultoras grandes también están comprando capacidades digitales: BTS adquirió Sounding Board en 2025 para agregar coaching at scale a su portfolio, mientras Torch compró Praxis Labs (VR diversity training) el mismo año para expandir a immersive learning.</p>
+
+            <p>El patrón es claro: las boutiques sin IP digital defendible están siendo adquiridas o quedando obsoletas. Los compradores buscan una de tres cosas: (1) data propietaria imposible de replicar, (2) capacidades tecnológicas que tomaría años construir in-house, o (3) distribution/customer base en mercados específicos.</p>
+
+            <p>Los partnerships estratégicos revelan otra dinámica. MindGym, luchando con su transición digital después de 24 años, formó alianza estratégica con Yoodli en 2024—una AI communication coach que ayuda practicar conversaciones difíciles vía simulación. En lugar de construir esa capacidad desde cero (años de desarrollo, millones en inversión), MindGym integra Yoodli en su suite Performa. Table Group tomó un camino similar pero más arriesgado: partnership con Leadr para toda su infraestructura digital, perdiendo control sobre roadmap de producto y customer data.</p>
+
+            <p>La implicación estratégica: quedarse "pure consulting" sin assets digitales es cada vez más riesgoso. Los buyers están pagando premiums por tech, no por marcas de consulting puras. Las boutiques que no pueden/quieren construir, al menos necesitan partnerships inteligentes que agreguen capabilities sin perder control estratégico.</p>
+
+            <h3>6. Learning Platforms B2B = oportunidad sin resolver</h3>
+            <p>The Optimism Company es más B2C/individual. Korn Ferry es corporate giant. <strong>Gap:</strong> ninguna boutique comparable construyó bien una learning platform B2B enterprise enfocada en cultura.</p>
         </div>
 
-        <!-- Slide 8: Coaching at Scale - Parte 3 -->
+        <!-- Slide 8 -->
         <div class="slide">
-            <div class="slide-content">
-                <h1>Coaching at Scale: Cuatro Apuestas Diferentes (cont.)</h1>
+            <h2>El Reloj Estratégico</h2>
 
-                <div class="highlight-box">
-                    <h3><span class="company-tag cat-coaching">BetterUp</span> <span class="badge" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">🦄 $1.73B</span> & <span class="company-tag cat-coaching">CoachHub</span> <span class="badge" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: #333;">✅ Global leader</span></h3>
-                    <h4>Scale Puro Democratizando Acceso</h4>
-                    <p>BetterUp ($1.73B unicorn valuation) y CoachHub (3,500+ coaches, 90 países) representan <strong>scale puro democratizando acceso a coaching</strong>.</p>
-                    
-                    <p><strong>BetterUp</strong> acumuló 17M data points que entrenan su AI Coach (lanzado enero 2025), apostando a "whole-person wellbeing" vs. trabajo-only—mental fitness, resilience, purpose.</p>
-                    
-                    <p><strong>CoachHub</strong> ganó global reach (80+ lenguajes) y lanzó AIMY™ career coach 24/7 integrado en Microsoft Teams (febrero 2025).</p>
-                    
-                    <p>Ambos usan AI principalmente para matching y accesibilidad 24/7, menos para organizational intelligence o practice inmersivo.</p>
-                </div>
+            <p><strong>2018-2021:</strong> Wave de consolidación tech (Microsoft, Workday comprando)</p>
+            
+            <p><strong>2022-2023:</strong> VC funding explota, unicornios emergen (BetterUp $1.73B)</p>
+            
+            <p><strong>2024-2025:</strong> AI coaches lanzan masivamente (BetterUp, CoachHub, Torch), M&A continúa (BTS, Torch)</p>
+            
+            <p><strong>2026+:</strong> ¿Agentic AI? ¿Consolidación de boutiques sin IP digital?</p>
 
-                <div class="key-points">
-                    <h3>El Debate Estratégico</h3>
-                    <p><strong>La crítica que reciben de Torch:</strong> son individual-centric (ayudan personas), no organization-centric (no transforman sistemas).</p>
-                    <p><strong>Por qué ganan:</strong> brand, scale, y economics—pueden ofrecer coaching a miles simultáneamente vs. boutiques limitadas por headcount de coaches.</p>
-                </div>
-            </div>
+            <p style="margin-top: 2rem; padding: 1.5rem; background: #fff3cd; border-left: 5px solid #f5576c; border-radius: 10px;"><strong>El tiempo para decidir se acorta.</strong> Table Group ya quedó 5-10 años atrás por no invertir temprano. Boutiques sin digital están siendo compradas.</p>
+
+            <p style="margin-top: 2rem; text-align: right; font-style: italic; color: #667eea;">Octubre 2025</p>
         </div>
 
-        <!-- Slide 9: Tech-Enabled Consulting -->
-        <div class="slide">
-            <div class="slide-content">
-                <h1>Tech-Enabled Consulting: Las Transiciones Difíciles</h1>
-
-                <div class="key-points">
-                    <h3><span class="company-tag cat-blended">MindGym</span> <span class="badge" style="background: #ff6b6b; color: white;">⚠️ Transición difícil</span></h3>
-                    <p>MindGym es el caso de estudio más revelador sobre <strong>por qué digitalizar behavioral science es brutalmente difícil</strong>.</p>
-                    
-                    <p>£38.6M revenue después de 24 años, con 700+ behavioral science assets codificados en productos digitales: eWorkouts (9-min courses), Performa (1-on-1 AI coaching que usa CBT + SFT logrando 95% behavioral change en 1-2 semanas según claim), y Diagnostics (360°). Tienen IP sólida en behavioral science y evidencia de efectividad.</p>
-                    
-                    <p><strong>Y sin embargo, 67% de su revenue sigue siendo delivery humano—solo ~£4M es digital.</strong></p>
-                    
-                    <p>La transición de workshops tradicionales a tech-enabled es más difícil de lo que parece. Formaron partnership con Yoodli en 2024 (AI communication coach para practice conversaciones) en lugar de construir esa capacidad in-house—señal de que incluso con años intentándolo, building tech core capabilities es challenge masivo.</p>
-                    
-                    <p><strong>La lección:</strong> MindGym muestra que tener behavioral science codificado no garantiza éxito digital—clientes siguen prefiriendo workshops facilitados por humanos vs. self-serve digital, incluso cuando el digital funciona.</p>
-                </div>
+        <!-- Controls -->
+        <div class="controls">
+            <button class="btn" id="prevBtn" onclick="changeSlide(-1)">← Anterior</button>
+            <div class="slide-indicator">
+                <span id="currentSlide">1</span> / <span id="totalSlides">8</span>
             </div>
+            <button class="btn" id="nextBtn" onclick="changeSlide(1)">Siguiente →</button>
         </div>
-
-        <!-- Slide 10: Tech-Enabled Consulting (cont.) -->
-        <div class="slide">
-            <div class="slide-content">
-                <h1>Tech-Enabled Consulting: Las Transiciones Difíciles (cont.)</h1>
-
-                <div class="highlight-box">
-                    <h3><span class="company-tag cat-blended">Culture Partners</span> <span class="badge" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: #333;">✅ McChrystal heritage</span></h3>
-                    <p>Culture Partners (herencia McChrystal) tiene herramientas impresionantes: Zodiak® gamification con 2.5M users, Culture Map/Results Map. Pero solo las venden dentro de consulting engagements. Generan stickiness y data baseline para el trabajo consultivo, no standalone revenue. Es tech como enabler, no como producto.</p>
-                </div>
-
-                <div class="key-points">
-                    <h3><span class="company-tag cat-assessment">Table Group</span> <span class="badge" style="background: #ff6b6b; color: white;">⚠️ 5-10 años atraso digital</span></h3>
-                    <p>Table Group (Patrick Lencioni) es la alerta estratégica más clara: tienen brand recognition masivo, frameworks probados en bestsellers, Working Genius assessment (~$25/person) que podría escalar. Pero en vez de construir tech propio, hicieron partnership con Leadr para digitalización.</p>
-                    
-                    <p>Mientras competidores como Torch, Hone y BetterUp construían plataformas enterprise-grade, Table Group quedó dependiendo de third-party. Esto limita control sobre product roadmap, customer data, y user experience.</p>
-                    
-                    <p><strong>Tienen 5-10 años de atraso digital vs. competidores que priorizaron platform desde el inicio. El costo de no invertir temprano.</strong></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 11: Performance Management -->
-        <div class="slide">
-            <div class="slide-content">
-                <h1>Performance Management: La Nueva Frontera</h1>
-
-                <div class="highlight-box">
-                    <h3><span class="company-tag cat-performance">Taito.ai</span> <span class="badge" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white;">⚡ Emergente 2024</span></h3>
-                    <h4>Embedded en Slack: El Cambio Fundamental</h4>
-                    <p>El performance management tradicional requiere que los empleados salgan de su workflow diario para usar otra plataforma. Taito.ai representa un cambio fundamental: en lugar de crear otro SaaS standalone, viven completamente dentro de Slack.</p>
-                    
-                    <p>Un manager recibe un mensaje directo de Taito preguntando "¿Cómo fue el proyecto con María esta semana?". Responde ahí mismo en Slack. Taito captura ese feedback, lo organiza en el perfil de María, y cuando llega el 1:1 semanal, el manager ya tiene un resumen preparado con los temas clave.</p>
-                    
-                    <p>Los goals se trackean con check-ins automáticos vía Slack. Las evaluaciones de performance se construyen a partir de feedback continuo ya capturado, no requieren sesiones maratónicas de "recordar qué pasó en los últimos 6 meses".</p>
-                </div>
-
-                <div class="highlight-box">
-                    <h3><span class="company-tag cat-performance">15Five</span> & <span class="company-tag cat-performance">Lattice</span> <span class="badge" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: #333;">✅ SaaS Maduro</span></h3>
-                    <p>Esto contrasta radicalmente con 15Five, Lattice, y el módulo performance de Culture Amp—plataformas maduras que requieren login separado, adopción consciente, cambio de hábitos. Son categoría commodity diferenciando en UX e integrations con HRIS.</p>
-                    
-                    <p><strong>Taito no compite con ellos frontalmente</strong>—apuesta que la próxima generación de herramientas no será "otra plataforma más" sino funcionalidad embebida donde la gente ya trabaja.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 12: Research & Insights -->
-        <div class="slide">
-            <div class="slide-content">
-                <h1>Research & Insights: Adjacent pero Distinto</h1>
-
-                <div class="highlight-box">
-                    <h3><span class="company-tag cat-intelligence">Remesh.ai</span> <span class="badge" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: #333;">✅ Establecido</span></h3>
-                    <p>Remesh.ai opera en terreno adyacente pero fundamentalmente diferente: focus groups digitales y conversational surveys con AI para market research.</p>
-                    
-                    <p>Sus clientes (Nestlé, Barclays, Yum Brands) los usan para entender consumidores, no para transformar cultura interna.</p>
-                    
-                    <p>Es research de mercado vs. organizational transformation—mecánicas similares (AI analyzing text, async participation), propósito completamente distinto.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 13: Patrones Estratégicos -->
-        <div class="slide">
-            <div class="slide-content">
-                <h1>Patrones Estratégicos Identificados</h1>
-
-                <div class="highlight-box">
-                    <h3>1. Solo ~40% ha digitalizado verdaderamente</h3>
-                    <p>De 15 consultoras comparables, solo 6 tienen productos digitales standalone. La mayoría mantiene consulting tradicional o tech-enabled pero humano-heavy.</p>
-                </div>
-
-                <div class="highlight-box">
-                    <h3>2. Assessments = puerta de entrada más común</h3>
-                    <p>Todos los que digitalizaron empezaron por assessments. Razón: generan data que aumenta valor con escala (benchmarking).</p>
-                </div>
-
-                <div class="highlight-box">
-                    <h3>3. Blended Services domina sobre Pure SaaS</h3>
-                    <p>MindGym después 24 años: solo 10% revenue digital. Denison lo hace bien: tiered model que no canibaliza premium consulting.</p>
-                </div>
-
-                <div class="key-points">
-                    <h3>4. AI + Behavioral Science = nuevo moat</h3>
-                    <p>Culture Amp con 1.4B responses, BetterUp con 17M data points. Imposible replicar sin años de data collection. <strong>Ventaja de segundo movedor ya cerró.</strong></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 14: Consolidación M&A -->
-        <div class="slide">
-            <div class="slide-content">
-                <h1>Consolidación Acelerada: M&A y Partnerships Estratégicos</h1>
-
-                <p>La industria está atravesando una fase de consolidación brutal que redefine el landscape competitivo.</p>
-
-                <div class="key-points">
-                    <h3>Big Tech Absorbiendo Pure-Plays</h3>
-                    <ul>
-                        <li><strong>Microsoft</strong> compró <span class="company-tag cat-intelligence">Glint</span> por $400M en 2018</li>
-                        <li><strong>Workday</strong> adquirió <span class="company-tag cat-intelligence">Peakon</span> por $700M en 2021 y posteriormente SanaLabs (AI learning)</li>
-                        <li><strong>Edenred</strong> (gigante francés de employee benefits) pagó $1.4B por Reward Gateway en 2023—la adquisición más grande del sector engagement/wellbeing</li>
-                    </ul>
-                </div>
-
-                <div class="highlight-box">
-                    <h3>Consultoras Comprando Capacidades Digitales</h3>
-                    <ul>
-                        <li><strong>BTS</strong> adquirió <span class="company-tag cat-coaching">Sounding Board</span> en 2025 para agregar coaching at scale a su portfolio</li>
-                        <li><strong>Torch</strong> compró Praxis Labs (VR diversity training) el mismo año para expandir a immersive learning</li>
-                    </ul>
-                </div>
-
-                <p style="margin-top: 2rem;"><strong>El patrón es claro:</strong> las boutiques sin IP digital defendible están siendo adquiridas o quedando obsoletas. Los compradores buscan una de tres cosas: (1) data propietaria imposible de replicar, (2) capacidades tecnológicas que tomaría años construir in-house, o (3) distribution/customer base en mercados específicos.</p>
-            </div>
-        </div>
-
-        <!-- Slide 15: Partnerships Estratégicos -->
-        <div class="slide">
-            <div class="slide-content">
-                <h1>Consolidación: Partnerships Estratégicos</h1>
-
-                <div class="highlight-box">
-                    <h3>Cuando Build vs. Partner</h3>
-                    <p>Los partnerships estratégicos revelan otra dinámica. <span class="company-tag cat-blended">MindGym</span>, luchando con su transición digital después de 24 años, formó alianza estratégica con <strong>Yoodli</strong> en 2024—una AI communication coach que ayuda practicar conversaciones difíciles vía simulación.</p>
-                    
-                    <p>En lugar de construir esa capacidad desde cero (años de desarrollo, millones en inversión), MindGym integra Yoodli en su suite Performa.</p>
-                </div>
-
-                <div class="key-points">
-                    <h3><span class="company-tag cat-assessment">Table Group</span>: El Riesgo del Partnership Total</h3>
-                    <p>Table Group tomó un camino similar pero más arriesgado: partnership con <strong>Leadr</strong> para toda su infraestructura digital, perdiendo control sobre roadmap de producto y customer data.</p>
-                </div>
-
-                <div class="highlight-box" style="margin-top: 2rem;">
-                    <h3>La Implicación Estratégica</h3>
-                    <p>Quedarse "pure consulting" sin assets digitales es cada vez más riesgoso. Los buyers están pagando premiums por tech, no por marcas de consulting puras.</p>
-                    <p><strong>Las boutiques que no pueden/quieren construir, al menos necesitan partnerships inteligentes que agreguen capabilities sin perder control estratégico.</strong></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 16: Learning Platforms B2B -->
-        <div class="slide">
-            <div class="slide-content">
-                <h1>Learning Platforms B2B: Oportunidad Sin Resolver</h1>
-
-                <div class="key-points">
-                    <h3>El Gap Identificado</h3>
-                    <p><span class="company-tag cat-learning">The Optimism Company</span> es más B2C/individual. <span class="company-tag cat-learning">Korn Ferry</span> es corporate giant.</p>
-                    <p style="font-size: 1.3rem; margin-top: 1.5rem;"><strong>Gap: ninguna boutique comparable construyó bien una learning platform B2B enterprise enfocada en cultura.</strong></p>
-                </div>
-
-                <div class="highlight-box">
-                    <h3>Características del Espacio Abierto</h3>
-                    <ul>
-                        <li><strong>No celebrity-dependent</strong> como The Optimism Company</li>
-                        <li><strong>No corporate giant</strong> como Korn Ferry</li>
-                        <li><strong>Enterprise B2B</strong> con sophistication apropiado</li>
-                        <li><strong>Enfoque específico en cultura</strong>, no skills generales</li>
-                        <li><strong>Scalable pero premium</strong>, no commodity</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 17: El Reloj Estratégico -->
-        <div class="slide">
-            <div class="slide-content">
-                <h1>El Reloj Estratégico</h1>
-
-                <div style="margin: 3rem 0;">
-                    <div class="highlight-box">
-                        <h3>2018-2021: Wave de Consolidación Tech</h3>
-                        <p>Microsoft, Workday comprando pure-plays de cultura y engagement</p>
-                    </div>
-
-                    <div class="highlight-box">
-                        <h3>2022-2023: VC Funding Explota</h3>
-                        <p>Unicornios emergen (BetterUp $1.73B, Culture Amp $1.5B)</p>
-                    </div>
-
-                    <div class="highlight-box">
-                        <h3>2024-2025: AI Coaches Lanzan Masivamente</h3>
-                        <p>BetterUp AI Coach (enero 2025), CoachHub AIMY™ (febrero 2025), Torch AI Copilot<br>
-                        M&A continúa: BTS→Sounding Board, Torch→Praxis Labs</p>
-                    </div>
-
-                    <div class="key-points">
-                        <h3>2026+: ¿Qué Sigue?</h3>
-                        <p><strong>Agentic AI?</strong> Sistemas autónomos que diseñan intervenciones sin humanos</p>
-                        <p><strong>Consolidación de boutiques sin IP digital?</strong> Table Group ya quedó 5-10 años atrás</p>
-                    </div>
-                </div>
-
-                <div style="background: linear-gradient(135deg, #ff6b6b, #ff8e8e); color: white; padding: 2rem; border-radius: 15px; margin-top: 3rem;">
-                    <h2 style="color: white; margin-bottom: 1rem;">⚠️ El Tiempo para Decidir Se Acorta</h2>
-                    <p style="color: white; font-size: 1.2rem; margin: 0;">Table Group ya quedó 5-10 años atrás por no invertir temprano. Boutiques sin digital están siendo compradas.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 18: Resumen Ejecutivo -->
-        <div class="slide">
-            <div class="slide-content">
-                <h1>Resumen Ejecutivo: Las Conclusiones Clave</h1>
-
-                <div class="key-points">
-                    <h3>🎯 El Valor Migró</h3>
-                    <p>De consulting tradicional hacia quien controla data + automatiza behavioral science a escala</p>
-                </div>
-
-                <div class="highlight-box">
-                    <h3>📊 Los Números Hablan</h3>
-                    <ul>
-                        <li>$2.5B+ en M&A en 3 años</li>
-                        <li>Solo 40% ha digitalizado verdaderamente</li>
-                        <li>Blended models dominan sobre pure-plays</li>
-                        <li>MindGym: 24 años, aún 67% humano</li>
-                    </ul>
-                </div>
-
-                <div class="key-points">
-                    <h3>⚡ Los Moats Nuevos</h3>
-                    <ul>
-                        <li><strong>Culture Amp:</strong> 1.4B employee responses</li>
-                        <li><strong>BetterUp:</strong> 17M data points entrenando AI</li>
-                        <li><strong>Ventaja segundo movedor YA CERRÓ</strong></li>
-                    </ul>
-                </div>
-
-                <div class="highlight-box">
-                    <h3>🎓 Los Casos de Estudio</h3>
-                    <p><strong>Éxito:</strong> Denison (tiered sin canibalización), Torch (org intelligence), Hone (democratización)</p>
-                    <p><strong>Lucha:</strong> MindGym (transición difícil), Table Group (dependencia terceros)</p>
-                </div>
-
-                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 15px; margin-top: 2rem;">
-                    <h3 style="color: white; margin-bottom: 1rem;">🚀 La Oportunidad</h3>
-                    <p style="color: white; font-size: 1.15rem; margin: 0;">Learning Platform B2B enterprise enfocada en cultura = espacio sin resolver entre celebrity-driven (The Optimism Company) y corporate giant (Korn Ferry)</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Slide Navigation Controls -->
-    <div class="slide-nav">
-        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Anterior</button>
-        <span class="slide-counter" id="slideCounter">1 / 18</span>
-        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Siguiente →</button>
-    </div>
-
-    <!-- Slide Menu -->
-    <div class="slide-menu">
-        <div class="slide-menu-item active" onclick="goToSlide(0)">1. Tesis Central</div>
-        <div class="slide-menu-item" onclick="goToSlide(1)">2. El Mapa</div>
-        <div class="slide-menu-item" onclick="goToSlide(2)">3. Diagnóstico & Inteligencia</div>
-        <div class="slide-menu-item" onclick="goToSlide(3)">4. Diagnóstico Blended</div>
-        <div class="slide-menu-item" onclick="goToSlide(4)">5. Desarrollo & Aprendizaje</div>
-        <div class="slide-menu-item" onclick="goToSlide(5)">6. Coaching (Torch)</div>
-        <div class="slide-menu-item" onclick="goToSlide(6)">7. Coaching (Hone)</div>
-        <div class="slide-menu-item" onclick="goToSlide(7)">8. Coaching (BetterUp/CoachHub)</div>
-        <div class="slide-menu-item" onclick="goToSlide(8)">9. Tech-Enabled (MindGym)</div>
-        <div class="slide-menu-item" onclick="goToSlide(9)">10. Tech-Enabled (Culture Partners/Table)</div>
-        <div class="slide-menu-item" onclick="goToSlide(10)">11. Performance Management</div>
-        <div class="slide-menu-item" onclick="goToSlide(11)">12. Research & Insights</div>
-        <div class="slide-menu-item" onclick="goToSlide(12)">13. Patrones Estratégicos</div>
-        <div class="slide-menu-item" onclick="goToSlide(13)">14. Consolidación M&A</div>
-        <div class="slide-menu-item" onclick="goToSlide(14)">15. Partnerships</div>
-        <div class="slide-menu-item" onclick="goToSlide(15)">16. Learning B2B Gap</div>
-        <div class="slide-menu-item" onclick="goToSlide(16)">17. El Reloj Estratégico</div>
-        <div class="slide-menu-item" onclick="goToSlide(17)">18. Resumen Ejecutivo</div>
     </div>
 
     <script>
@@ -799,48 +389,29 @@
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
 
+        document.getElementById('totalSlides').textContent = totalSlides;
+
         function showSlide(n) {
-            if (n >= totalSlides) currentSlide = totalSlides - 1;
-            if (n < 0) currentSlide = 0;
-            
-            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
             slides[currentSlide].classList.add('active');
             
-            // Update counter
-            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+            document.getElementById('currentSlide').textContent = currentSlide + 1;
             
-            // Update buttons
             document.getElementById('prevBtn').disabled = currentSlide === 0;
             document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
-            
-            // Update menu
-            document.querySelectorAll('.slide-menu-item').forEach((item, index) => {
-                item.classList.toggle('active', index === currentSlide);
-            });
-            
-            // Scroll to top of slide content
-            slides[currentSlide].scrollTop = 0;
         }
 
         function changeSlide(direction) {
-            currentSlide += direction;
-            showSlide(currentSlide);
+            showSlide(currentSlide + direction);
         }
 
-        function goToSlide(n) {
-            currentSlide = n;
-            showSlide(currentSlide);
-        }
-
-        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') changeSlide(-1);
             if (e.key === 'ArrowRight') changeSlide(1);
         });
 
-        // Initialize
         showSlide(0);
     </script>
 </body>
 </html>
-
