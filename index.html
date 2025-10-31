@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategic Positioning Map - HR Tech & Culture 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+        
+        .map-container {
+            position: relative;
+            width: 100%;
+            height: 800px;
+            background: linear-gradient(to right, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid #dee2e6;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        /* Ejes */
+        .axis-x {
+            position: absolute;
+            bottom: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #495057;
+        }
+        
+        .axis-y {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #495057;
+        }
+        
+        /* Labels de ejes */
+        .axis-label {
+            position: absolute;
+            font-size: 14px;
+            font-weight: 600;
+            color: #495057;
+            padding: 8px 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .label-top {
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .label-bottom {
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .label-left {
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .label-right {
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        /* Cuadrantes */
+        .quadrant {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(0,0,0,0.2);
+            pointer-events: none;
+        }
+        
+        .q1 { top: 0; right: 0; }
+        .q2 { top: 0; left: 0; }
+        .q3 { bottom: 0; left: 0; }
+        .q4 { bottom: 0; right: 0; }
+        
+        /* Empresas (burbujas) */
+        .company-bubble {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            line-height: 1.2;
+            padding: 10px;
+        }
+        
+        .company-bubble:hover {
+            transform: scale(1.15);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            z-index: 100;
+        }
+        
+        /* Tamaños por funding/scale */
+        .size-huge { width: 140px; height: 140px; font-size: 13px; }
+        .size-large { width: 110px; height: 110px; font-size: 12px; }
+        .size-medium { width: 90px; height: 90px; font-size: 11px; }
+        .size-small { width: 75px; height: 75px; font-size: 10px; }
+        
+        /* Colores por categoría */
+        .cat-intelligence { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .cat-coaching { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .cat-learning { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .cat-performance { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .cat-assessment { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .cat-blended { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
+        
+        /* Flechas de movimiento */
+        .arrow {
+            position: absolute;
+            pointer-events: none;
+            z-index: 50;
+        }
+        
+        .arrow-line {
+            stroke: #e74c3c;
+            stroke-width: 3;
+            stroke-dasharray: 5, 5;
+            fill: none;
+            opacity: 0.7;
+        }
+        
+        .arrow-head {
+            fill: #e74c3c;
+            opacity: 0.7;
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+        
+        .tooltip.show {
+            opacity: 1;
+        }
+        
+        .tooltip-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .tooltip-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            margin-top: 6px;
+        }
+        
+        /* Leyenda */
+        .legend {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+        
+        .legend-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .legend-section {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .legend-section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 10px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+            font-size: 11px;
+        }
+        
+        .legend-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        .legend-size {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #adb5bd;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        .size-indicator-huge { width: 35px; height: 35px; }
+        .size-indicator-large { width: 28px; height: 28px; }
+        .size-indicator-medium { width: 22px; height: 22px; }
+        .size-indicator-small { width: 18px; height: 18px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Strategic Positioning Map: HR Tech & Culture 2025</h1>
+            <p class="subtitle">Posicionamiento estratégico y movimientos del mercado</p>
+        </header>
+        
+        <div class="map-container" id="map">
+            <!-- Ejes -->
+            <div class="axis-x"></div>
+            <div class="axis-y"></div>
+            
+            <!-- Labels de ejes -->
+            <div class="axis-label label-top">STANDALONE SaaS<br/><span style="font-size:11px; font-weight:400;">Software sin humanos</span></div>
+            <div class="axis-label label-bottom">BLENDED SERVICES<br/><span style="font-size:11px; font-weight:400;">Tech + consultores</span></div>
+            <div class="axis-label label-left">HUMAN-FIRST<br/><span style="font-size:11px; font-weight:400;">Consultor core</span></div>
+            <div class="axis-label label-right">TECH-FIRST<br/><span style="font-size:11px; font-weight:400;">Software core</span></div>
+            
+            <!-- Cuadrantes -->
+            <div class="quadrant q1">Tech-First + Standalone</div>
+            <div class="quadrant q2">Human-First + Standalone</div>
+            <div class="quadrant q3">Human-First + Blended</div>
+            <div class="quadrant q4">Tech-First + Blended</div>
+            
+            <!-- Empresas -->
+            <!-- Q1: Tech-First + Standalone -->
+            <div class="company-bubble cat-intelligence size-huge" style="right: 15%; top: 20%;" 
+                 data-name="Culture Amp"
+                 data-desc="1.4B employee responses. Network effects en benchmarking. Unicornio $1.5B."
+                 data-tag="Líder establecido">
+                Culture<br/>Amp
+            </div>
+            
+            <div class="company-bubble cat-intelligence size-medium" style="right: 12%; top: 35%;" 
+                 data-name="Instill.ai"
+                 data-desc="Culture OS. Escucha meetings en tiempo real. Next-gen behavioral intelligence."
+                 data-tag="Emergente 2024">
+                Instill.ai
+            </div>
+            
+            <div class="company-bubble cat-performance size-small" style="right: 20%; top: 15%;" 
+                 data-name="Taito.ai"
+                 data-desc="Performance management nativo en Slack. Embedded in workflow."
+                 data-tag="Emergente 2024">
+                Taito
+            </div>
+            
+            <div class="company-bubble cat-performance size-medium" style="right: 25%; top: 25%;" 
+                 data-name="15Five / Lattice"
+                 data-desc="Performance management SaaS establecidos. Categoría commodity."
+                 data-tag="Maduros">
+                15Five<br/>Lattice
+            </div>
+            
+            <!-- Q2: Human-First + Standalone (raro) -->
+            <div class="company-bubble cat-assessment size-large" style="left: 8%; top: 18%;" 
+                 data-name="Hogan Assessment"
+                 data-desc="30+ años. 13M+ evaluaciones. 75% Fortune 500. Pure-play assessment."
+                 data-tag="Industry standard">
+                Hogan
+            </div>
+            
+            <!-- Q3: Human-First + Blended -->
+            <div class="company-bubble cat-blended size-large" style="left: 15%; bottom: 15%;" 
+                 data-name="MindGym"
+                 data-desc="£38.6M revenue. 67% humano después 24 años. Transición difícil."
+                 data-tag="Lucha digital" id="mindgym">
+                MindGym
+            </div>
+            
+            <div class="company-bubble cat-blended size-medium" style="left: 22%; bottom: 25%;" 
+                 data-name="Culture Partners"
+                 data-desc="Zodiak® gamification. Herramientas solo en consulting engagements."
+                 data-tag="McChrystal heritage">
+                Culture<br/>Partners
+            </div>
+            
+            <div class="company-bubble cat-blended size-medium" style="left: 10%; bottom: 28%;" 
+                 data-name="Walking the Talk"
+                 data-desc="Taylor Assessment. Requiere consultores WTT para implementación."
+                 data-tag="UK Consulting">
+                Walking<br/>the Talk
+            </div>
+            
+            <div class="company-bubble cat-assessment size-medium" style="left: 25%; bottom: 18%;" 
+                 data-name="Table Group"
+                 data-desc="Partnership con Leadr (no build propio). 5-10 años atrás en digital."
+                 data-tag="Lencioni brand" id="tablegroup">
+                Table<br/>Group
+            </div>
+            
+            <!-- Q4: Tech-First + Blended -->
+            <div class="company-bubble cat-coaching size-large" style="right: 18%; bottom: 22%;" 
+                 data-name="Torch.io"
+                 data-desc="Program-centric. AI Copilot. Organizational intelligence. Adquirió Praxis Labs."
+                 data-tag="$50M+ funding">
+                Torch.io
+            </div>
+            
+            <div class="company-bubble cat-coaching size-huge" style="right: 10%; bottom: 12%;" 
+                 data-name="BetterUp"
+                 data-desc="17M data points. AI Coach lanzado enero 2025. Whole-person approach."
+                 data-tag="Unicornio $1.73B">
+                BetterUp
+            </div>
+            
+            <div class="company-bubble cat-coaching size-large" style="right: 25%; bottom: 30%;" 
+                 data-name="CoachHub"
+                 data-desc="3,500+ coaches, 90 países. AIMY™ AI coach vía MS Teams."
+                 data-tag="Global leader">
+                CoachHub
+            </div>
+            
+            <div class="company-bubble cat-learning size-medium" style="right: 15%; bottom: 35%;" 
+                 data-name="Hone"
+                 data-desc="Live learning 8-12 personas. Tech automatiza logística. Hone AI 24/7."
+                 data-tag="Live + AI hybrid">
+                Hone
+            </div>
+            
+            <div class="company-bubble cat-assessment size-large" style="right: 32%; bottom: 20%;" 
+                 data-name="Denison"
+                 data-desc="Modelo tiered inteligente. Self-service + consulting-enabled. No canibaliza."
+                 data-tag="35+ años">
+                Denison
+            </div>
+            
+            <!-- Flechas de movimiento -->
+            <svg class="arrow" style="left: 18%; bottom: 18%; width: 120px; height: 80px;">
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" class="arrow-head" />
+                    </marker>
+                </defs>
+                <path d="M 20 70 Q 60 40, 100 10" class="arrow-line" marker-end="url(#arrowhead)" />
+                <text x="35" y="55" fill="#e74c3c" font-size="10" font-weight="600">Intenta</text>
+            </svg>
+            
+            <svg class="arrow" style="left: 28%; bottom: 20%; width: 100px; height: 60px;">
+                <path d="M 10 50 L 80 15" class="arrow-line" marker-end="url(#arrowhead)" />
+                <text x="20" y="40" fill="#e74c3c" font-size="10" font-weight="600">Partner</text>
+            </svg>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-title">Leyenda</div>
+            <div class="legend-grid">
+                <div class="legend-section">
+                    <div class="legend-section-title">Categorías</div>
+                    <div class="legend-item">
+                        <div class="legend-color cat-intelligence"></div>
+                        <span>Culture Intelligence</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color cat-coaching"></div>
+                        <span>AI Coaching</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color cat-learning"></div>
+                        <span>Live Learning</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color cat-performance"></div>
+                        <span>Performance Mgmt</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color cat-assessment"></div>
+                        <span>Assessment</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color cat-blended"></div>
+                        <span>Blended Consulting</span>
+                    </div>
+                </div>
+                
+                <div class="legend-section">
+                    <div class="legend-section-title">Tamaño = Scale/Funding</div>
+                    <div class="legend-item">
+                        <div class="legend-size size-indicator-huge"></div>
+                        <span>Unicornio ($1B+)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-size size-indicator-large"></div>
+                        <span>Large ($50M-500M)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-size size-indicator-medium"></div>
+                        <span>Medium ($10M-50M)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-size size-indicator-small"></div>
+                        <span>Small/Emergente</span>
+                    </div>
+                </div>
+                
+                <div class="legend-section">
+                    <div class="legend-section-title">Insights Clave</div>
+                    <div style="font-size: 11px; line-height: 1.6; color: #495057;">
+                        <strong>Q1 (Tech + Standalone):</strong> Requiere data masiva o tech breakthrough.<br/><br/>
+                        <strong>Q4 (Tech + Blended):</strong> Sweet spot—tech potencia sin canibalizare.<br/><br/>
+                        <strong>Flechas rojas:</strong> Intentos de migración (difícil ejecutar).
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tooltip -->
+        <div class="tooltip" id="tooltip">
+            <div class="tooltip-title"></div>
+            <div class="tooltip-desc"></div>
+            <div class="tooltip-tag"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Tooltip functionality
+        const tooltip = document.getElementById('tooltip');
+        const bubbles = document.querySelectorAll('.company-bubble');
+        
+        bubbles.forEach(bubble => {
+            bubble.addEventListener('mouseenter', (e) => {
+                const name = bubble.getAttribute('data-name');
+                const desc = bubble.getAttribute('data-desc');
+                const tag = bubble.getAttribute('data-tag');
+                
+                tooltip.querySelector('.tooltip-title').textContent = name;
+                tooltip.querySelector('.tooltip-desc').textContent = desc;
+                tooltip.querySelector('.tooltip-tag').textContent = tag;
+                
+                tooltip.classList.add('show');
+            });
+            
+            bubble.addEventListener('mousemove', (e) => {
+                tooltip.style.left = (e.pageX + 20) + 'px';
+                tooltip.style.top = (e.pageY - 40) + 'px';
+            });
+            
+            bubble.addEventListener('mouseleave', () => {
+                tooltip.classList.remove('show');
+            });
+        });
+    </script>
+</body>
+</html>
