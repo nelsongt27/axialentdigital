@@ -63,8 +63,8 @@
 
         .presentation {
             max-width: 1200px;
-            margin: 100px auto 50px;
-            padding: 0 2rem;
+            margin: 100px auto 0;
+            padding: 0 2rem 120px 2rem;
         }
 
         .slide {
@@ -72,10 +72,12 @@
             background: white;
             border-radius: 20px;
             padding: 4rem;
+            padding-bottom: 6rem;
             max-height: 85vh;
             overflow-y: auto;
             box-shadow: 0 20px 60px rgba(0,0,0,0.2);
             animation: fadeIn 0.5s;
+            position: relative;
         }
 
         .slide.active {
@@ -98,6 +100,23 @@
 
         .slide::-webkit-scrollbar-thumb:hover {
             background: #764ba2;
+        }
+
+        /* Indicador de más contenido */
+        .slide::after {
+            content: '';
+            position: sticky;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to top, rgba(255,255,255,0.95), transparent);
+            pointer-events: none;
+            display: none;
+        }
+
+        .slide.has-more-content::after {
+            display: block;
         }
 
         @keyframes fadeIn {
@@ -143,51 +162,66 @@
         }
 
         .controls {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 2px solid #f0f0f0;
+            gap: 3rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+            z-index: 100;
         }
 
         .btn {
-            padding: 1rem 2rem;
+            padding: 1rem 2.5rem;
             border: none;
             border-radius: 50px;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            min-width: 150px;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        .btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
         }
 
         .btn:disabled {
-            opacity: 0.5;
+            opacity: 0.3;
             cursor: not-allowed;
             transform: none;
         }
 
         .slide-indicator {
-            font-size: 1rem;
+            font-size: 1.2rem;
             color: #667eea;
-            font-weight: 600;
+            font-weight: 700;
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 30px;
+            min-width: 100px;
+            text-align: center;
         }
 
         @media (max-width: 768px) {
             .presentation {
-                padding: 0 1rem;
+                padding: 0 1rem 100px 1rem;
                 margin-top: 80px;
             }
 
             .slide {
                 padding: 2rem 1.5rem;
+                padding-bottom: 4rem;
                 max-height: 80vh;
             }
 
@@ -215,12 +249,19 @@
             }
 
             .controls {
-                flex-direction: column;
                 gap: 1rem;
+                padding: 1rem;
             }
 
             .btn {
-                width: 100%;
+                padding: 0.8rem 1.5rem;
+                font-size: 0.95rem;
+                min-width: 100px;
+            }
+
+            .slide-indicator {
+                font-size: 1rem;
+                padding: 0.4rem 1rem;
             }
         }
     </style>
@@ -387,24 +428,61 @@
 
         document.getElementById('totalSlides').textContent = totalSlides;
 
+        // Detectar si hay más contenido en el slide
+        function checkScrollIndicator(slide) {
+            const hasScroll = slide.scrollHeight > slide.clientHeight;
+            const isAtBottom = slide.scrollHeight - slide.scrollTop <= slide.clientHeight + 10;
+            
+            if (hasScroll && !isAtBottom) {
+                slide.classList.add('has-more-content');
+            } else {
+                slide.classList.remove('has-more-content');
+            }
+        }
+
         function showSlide(n) {
             slides[currentSlide].classList.remove('active');
             currentSlide = (n + totalSlides) % totalSlides;
-            slides[currentSlide].classList.add('active');
+            const activeSlide = slides[currentSlide];
+            activeSlide.classList.add('active');
+            
+            // Scroll to top
+            activeSlide.scrollTop = 0;
             
             document.getElementById('currentSlide').textContent = currentSlide + 1;
             
             document.getElementById('prevBtn').disabled = currentSlide === 0;
             document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+            
+            // Check if slide has more content
+            setTimeout(() => checkScrollIndicator(activeSlide), 100);
         }
 
         function changeSlide(direction) {
             showSlide(currentSlide + direction);
         }
 
+        // Add scroll listeners to all slides
+        slides.forEach(slide => {
+            slide.addEventListener('scroll', () => {
+                if (slide.classList.contains('active')) {
+                    checkScrollIndicator(slide);
+                }
+            });
+        });
+
+        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') changeSlide(-1);
             if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        // Window resize
+        window.addEventListener('resize', () => {
+            const activeSlide = slides[currentSlide];
+            if (activeSlide) {
+                checkScrollIndicator(activeSlide);
+            }
         });
 
         showSlide(0);
