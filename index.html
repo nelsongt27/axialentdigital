@@ -3,579 +3,628 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strategic Positioning Map - HR Tech & Culture 2025</title>
+    <title>Ecosistema HR Culture Tech 2025 | Axialent Strategy</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 30px;
-            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
         }
-        
-        .container {
-            max-width: 1400px;
+
+        /* Header Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        nav {
+            max-width: 1200px;
             margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #667eea;
+        }
+
+        /* Presentation Container */
+        .presentation {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 0 2rem;
+        }
+
+        .slide {
+            display: none;
             background: white;
             border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 4rem;
+            min-height: 600px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            animation: fadeIn 0.5s;
         }
-        
-        header {
-            text-align: center;
-            margin-bottom: 30px;
+
+        .slide.active {
+            display: block;
         }
-        
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         h1 {
-            font-size: 32px;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        
-        .subtitle {
-            font-size: 14px;
-            color: #7f8c8d;
-            margin-bottom: 15px;
-        }
-        
-        .map-container {
-            position: relative;
-            width: 100%;
-            height: 800px;
-            background: linear-gradient(to right, #f8f9fa 0%, #e9ecef 100%);
-            border: 2px solid #dee2e6;
-            border-radius: 15px;
-            margin: 30px 0;
-        }
-        
-        /* Ejes */
-        .axis-x {
-            position: absolute;
-            bottom: 50%;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: #495057;
-        }
-        
-        .axis-y {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: #495057;
-        }
-        
-        /* Labels de ejes */
-        .axis-label {
-            position: absolute;
-            font-size: 14px;
-            font-weight: 600;
-            color: #495057;
-            padding: 8px 15px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .label-top {
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .label-bottom {
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .label-left {
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        
-        .label-right {
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        
-        /* Cuadrantes */
-        .quadrant {
-            position: absolute;
-            width: 50%;
-            height: 50%;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            padding: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            color: rgba(0,0,0,0.2);
-            pointer-events: none;
-        }
-        
-        .q1 { top: 0; right: 0; }
-        .q2 { top: 0; left: 0; }
-        .q3 { bottom: 0; left: 0; }
-        .q4 { bottom: 0; right: 0; }
-        
-        /* Empresas (burbujas) */
-        .company-bubble {
-            position: absolute;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: 600;
-            color: white;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             line-height: 1.2;
-            padding: 10px;
         }
-        
-        .company-bubble:hover {
-            transform: scale(1.15);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-            z-index: 100;
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #667eea;
         }
-        
-        /* Tamaños por funding/scale */
-        .size-huge { width: 140px; height: 140px; font-size: 13px; }
-        .size-large { width: 110px; height: 110px; font-size: 12px; }
-        .size-medium { width: 90px; height: 90px; font-size: 11px; }
-        .size-small { width: 75px; height: 75px; font-size: 10px; }
-        
-        /* Colores por categoría */
-        .cat-intelligence { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .cat-coaching { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-        .cat-learning { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-        .cat-performance { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
-        .cat-assessment { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
-        .cat-blended { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
-        
-        /* Flechas de movimiento */
-        .arrow {
-            position: absolute;
-            pointer-events: none;
-            z-index: 50;
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            color: #764ba2;
         }
-        
-        .arrow-line {
-            stroke: #e74c3c;
-            stroke-width: 3;
-            stroke-dasharray: 5, 5;
-            fill: none;
-            opacity: 0.7;
+
+        p, li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            color: #555;
         }
-        
-        .arrow-head {
-            fill: #e74c3c;
-            opacity: 0.7;
+
+        ul {
+            margin-left: 2rem;
         }
-        
-        /* Tooltip */
-        .tooltip {
-            position: absolute;
-            background: rgba(0,0,0,0.9);
-            color: white;
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-size: 12px;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 1000;
-            max-width: 300px;
-            line-height: 1.5;
-        }
-        
-        .tooltip.show {
-            opacity: 1;
-        }
-        
-        .tooltip-title {
-            font-weight: bold;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-        
-        .tooltip-tag {
+
+        .badge {
             display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            margin-top: 6px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
         }
-        
-        /* Leyenda */
-        .legend {
+
+        .badge-unicorn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .badge-acquired {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .badge-emerging {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+        }
+
+        .badge-established {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: #333;
+        }
+
+        .company {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.3rem;
             background: #f8f9fa;
-            padding: 25px;
-            border-radius: 15px;
-            margin-top: 30px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            cursor: pointer;
+            transition: all 0.3s;
         }
-        
-        .legend-title {
-            font-size: 16px;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 15px;
+
+        .company:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-        
-        .legend-grid {
+
+        .category-intelligence { border-left-color: #667eea; }
+        .category-coaching { border-left-color: #f5576c; }
+        .category-learning { border-left-color: #00f2fe; }
+        .category-performance { border-left-color: #38f9d7; }
+        .category-assessment { border-left-color: #fee140; }
+        .category-blended { border-left-color: #330867; }
+
+        .companies-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
         }
-        
-        .legend-section {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
+
+        .insight-box {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            border-left: 5px solid #667eea;
         }
-        
-        .legend-section-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: #495057;
-            margin-bottom: 10px;
+
+        .insight-box strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 0.5rem;
         }
-        
-        .legend-item {
+
+        /* Navigation Controls */
+        .controls {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            margin: 8px 0;
-            font-size: 11px;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid #f0f0f0;
         }
-        
-        .legend-color {
-            width: 30px;
-            height: 30px;
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-indicator {
+            font-size: 1rem;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+            margin: 2rem 0;
+        }
+
+        .timeline-item {
+            padding: 1rem 0 1rem 2rem;
+            border-left: 3px solid #667eea;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 1.5rem;
+            width: 13px;
+            height: 13px;
             border-radius: 50%;
-            margin-right: 10px;
-            flex-shrink: 0;
+            background: #667eea;
+            border: 3px solid white;
         }
-        
-        .legend-size {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #adb5bd;
-            margin-right: 10px;
-            flex-shrink: 0;
+
+        .timeline-year {
+            font-weight: 700;
+            color: #667eea;
+            font-size: 1.2rem;
         }
-        
-        .size-indicator-huge { width: 35px; height: 35px; }
-        .size-indicator-large { width: 28px; height: 28px; }
-        .size-indicator-medium { width: 22px; height: 22px; }
-        .size-indicator-small { width: 18px; height: 18px; }
+
+        @media (max-width: 768px) {
+            .presentation {
+                padding: 0 1rem;
+                margin-top: 80px;
+            }
+
+            .slide {
+                padding: 2rem;
+                min-height: auto;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .companies-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Strategic Positioning Map: HR Tech & Culture 2025</h1>
-            <p class="subtitle">Posicionamiento estratégico y movimientos del mercado</p>
-        </header>
-        
-        <div class="map-container" id="map">
-            <!-- Ejes -->
-            <div class="axis-x"></div>
-            <div class="axis-y"></div>
+    <header>
+        <nav>
+            <div class="logo">Axialent Strategy 2025</div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Overview</a></li>
+                <li><a href="positioning-map.html">Strategic Map</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="presentation">
+        <!-- Slide 1: Tesis Central -->
+        <div class="slide active">
+            <h1>El Ecosistema de HR Tech, L&D y Culture</h1>
+            <h2>Mapa Estratégico 2025</h2>
             
-            <!-- Labels de ejes -->
-            <div class="axis-label label-top">STANDALONE SaaS<br/><span style="font-size:11px; font-weight:400;">Software sin humanos</span></div>
-            <div class="axis-label label-bottom">BLENDED SERVICES<br/><span style="font-size:11px; font-weight:400;">Tech + consultores</span></div>
-            <div class="axis-label label-left">HUMAN-FIRST<br/><span style="font-size:11px; font-weight:400;">Consultor core</span></div>
-            <div class="axis-label label-right">TECH-FIRST<br/><span style="font-size:11px; font-weight:400;">Software core</span></div>
-            
-            <!-- Cuadrantes -->
-            <div class="quadrant q1">Tech-First + Standalone</div>
-            <div class="quadrant q2">Human-First + Standalone</div>
-            <div class="quadrant q3">Human-First + Blended</div>
-            <div class="quadrant q4">Tech-First + Blended</div>
-            
-            <!-- Empresas -->
-            <!-- Q1: Tech-First + Standalone -->
-            <div class="company-bubble cat-intelligence size-huge" style="right: 15%; top: 20%;" 
-                 data-name="Culture Amp"
-                 data-desc="1.4B employee responses. Network effects en benchmarking. Unicornio $1.5B."
-                 data-tag="Líder establecido">
-                Culture<br/>Amp
+            <div class="insight-box">
+                <strong>La Tesis Central</strong>
+                <p>La industria de cultura y desarrollo de liderazgo está en plena reconfiguración. Las líneas entre software, servicios profesionales y contenido se difuminan. <strong>El valor migra hacia quien controla la data y puede automatizar behavioral science a escala.</strong></p>
             </div>
-            
-            <div class="company-bubble cat-intelligence size-medium" style="right: 12%; top: 35%;" 
-                 data-name="Instill.ai"
-                 data-desc="Culture OS. Escucha meetings en tiempo real. Next-gen behavioral intelligence."
-                 data-tag="Emergente 2024">
-                Instill.ai
-            </div>
-            
-            <div class="company-bubble cat-performance size-small" style="right: 20%; top: 15%;" 
-                 data-name="Taito.ai"
-                 data-desc="Performance management nativo en Slack. Embedded in workflow."
-                 data-tag="Emergente 2024">
-                Taito
-            </div>
-            
-            <div class="company-bubble cat-performance size-medium" style="right: 25%; top: 25%;" 
-                 data-name="15Five"
-                 data-desc="Check-ins semanales, continuous feedback, OKRs. Performance management establecido."
-                 data-tag="SaaS Maduro">
-                15Five
-            </div>
-            
-            <div class="company-bubble cat-performance size-medium" style="right: 28%; top: 32%;" 
-                 data-name="Lattice"
-                 data-desc="Performance + engagement + growth. HRIS integrations. Categoría madura."
-                 data-tag="SaaS Maduro">
-                Lattice
-            </div>
-            
-            <div class="company-bubble cat-intelligence size-medium" style="right: 22%; top: 12%;" 
-                 data-name="Glint (Microsoft)"
-                 data-desc="People analytics, real-time engagement. Adquirido $400M (2018)."
-                 data-tag="Adquirido BigTech">
-                Glint
-            </div>
-            
-            <div class="company-bubble cat-intelligence size-medium" style="right: 18%; top: 8%;" 
-                 data-name="Peakon (Workday)"
-                 data-desc="Employee engagement platform. Adquirido $700M (2021)."
-                 data-tag="Adquirido BigTech">
-                Peakon
-            </div>
-            
-            <div class="company-bubble cat-intelligence size-medium" style="right: 8%; top: 28%;" 
-                 data-name="Culture Factor Group"
-                 data-desc="Culture Portal €16-24K/año. Assessments + e-learning + benchmarking."
-                 data-tag="Europa">
-                Culture<br/>Factor
-            </div>
-            
-            <!-- Q2: Human-First + Standalone (raro) -->
-            <div class="company-bubble cat-assessment size-large" style="left: 8%; top: 18%;" 
-                 data-name="Hogan Assessment"
-                 data-desc="30+ años. 13M+ evaluaciones. 75% Fortune 500. Pure-play assessment."
-                 data-tag="Industry standard">
-                Hogan
-            </div>
-            
-            <div class="company-bubble cat-learning size-small" style="left: 15%; top: 25%;" 
-                 data-name="The Optimism Company"
-                 data-desc="Simon Sinek brand. $299/año, 250+ videos. B2C/B2B hybrid."
-                 data-tag="Content platform">
-                Optimism<br/>Co
-            </div>
-            
-            <!-- Q3: Human-First + Blended -->
-            <div class="company-bubble cat-blended size-large" style="left: 15%; bottom: 15%;" 
-                 data-name="MindGym"
-                 data-desc="£38.6M revenue. 67% humano después 24 años. Transición difícil."
-                 data-tag="Lucha digital" id="mindgym">
-                MindGym
-            </div>
-            
-            <div class="company-bubble cat-blended size-medium" style="left: 22%; bottom: 25%;" 
-                 data-name="Culture Partners"
-                 data-desc="Zodiak® gamification. Herramientas solo en consulting engagements."
-                 data-tag="McChrystal heritage">
-                Culture<br/>Partners
-            </div>
-            
-            <div class="company-bubble cat-blended size-medium" style="left: 10%; bottom: 28%;" 
-                 data-name="Walking the Talk"
-                 data-desc="Taylor Assessment. Requiere consultores WTT para implementación."
-                 data-tag="UK Consulting">
-                Walking<br/>the Talk
-            </div>
-            
-            <div class="company-bubble cat-assessment size-medium" style="left: 25%; bottom: 18%;" 
-                 data-name="Table Group"
-                 data-desc="Partnership con Leadr (no build propio). 5-10 años atrás en digital."
-                 data-tag="Lencioni brand" id="tablegroup">
-                Table<br/>Group
-            </div>
-            
-            <div class="company-bubble cat-learning size-small" style="left: 18%; bottom: 35%;" 
-                 data-name="Korn Ferry Learn"
-                 data-desc="Enterprise learning platform. Role-based journeys + 50 años data consulting."
-                 data-tag="Corporate Giant">
-                Korn Ferry<br/>Learn
-            </div>
-            
-            <!-- Q4: Tech-First + Blended -->
-            <div class="company-bubble cat-coaching size-large" style="right: 18%; bottom: 22%;" 
-                 data-name="Torch.io"
-                 data-desc="Program-centric. AI Copilot. Organizational intelligence. Adquirió Praxis Labs."
-                 data-tag="$50M+ funding">
-                Torch.io
-            </div>
-            
-            <div class="company-bubble cat-coaching size-huge" style="right: 10%; bottom: 12%;" 
-                 data-name="BetterUp"
-                 data-desc="17M data points. AI Coach lanzado enero 2025. Whole-person approach."
-                 data-tag="Unicornio $1.73B">
-                BetterUp
-            </div>
-            
-            <div class="company-bubble cat-coaching size-large" style="right: 25%; bottom: 30%;" 
-                 data-name="CoachHub"
-                 data-desc="3,500+ coaches, 90 países. AIMY™ AI coach vía MS Teams."
-                 data-tag="Global leader">
-                CoachHub
-            </div>
-            
-            <div class="company-bubble cat-coaching size-medium" style="right: 32%; bottom: 25%;" 
-                 data-name="Sounding Board (BTS)"
-                 data-desc="97% first-match success. Modelo licensing único. Adquirido BTS 2025."
-                 data-tag="Adquirido 2025">
-                Sounding<br/>Board
-            </div>
-            
-            <div class="company-bubble cat-learning size-medium" style="right: 15%; bottom: 35%;" 
-                 data-name="Hone"
-                 data-desc="Live learning 8-12 personas. Tech automatiza logística. Hone AI 24/7."
-                 data-tag="Live + AI hybrid">
-                Hone
-            </div>
-            
-            <div class="company-bubble cat-assessment size-large" style="right: 35%; bottom: 18%;" 
-                 data-name="Denison"
-                 data-desc="Modelo tiered inteligente. Self-service + consulting-enabled. No canibaliza."
-                 data-tag="35+ años">
-                Denison
-            </div>
-            
-            <!-- Flechas de movimiento -->
-            <svg class="arrow" style="left: 18%; bottom: 18%; width: 120px; height: 80px;">
-                <defs>
-                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
-                        <polygon points="0 0, 10 3, 0 6" class="arrow-head" />
-                    </marker>
-                </defs>
-                <path d="M 20 70 Q 60 40, 100 10" class="arrow-line" marker-end="url(#arrowhead)" />
-                <text x="35" y="55" fill="#e74c3c" font-size="10" font-weight="600">Intenta</text>
-            </svg>
-            
-            <svg class="arrow" style="left: 28%; bottom: 20%; width: 100px; height: 60px;">
-                <path d="M 10 50 L 80 15" class="arrow-line" marker-end="url(#arrowhead)" />
-                <text x="20" y="40" fill="#e74c3c" font-size="10" font-weight="600">Partner</text>
-            </svg>
+
+            <h3>Tres Fuerzas Simultáneas</h3>
+            <ul>
+                <li><strong>Consolidación acelerada</strong> — M&A de $400M-$1.4B en últimos 3 años</li>
+                <li><strong>AI + Behavioral Science</strong> — Ventajas imposibles de replicar</li>
+                <li><strong>Blended models dominando</strong> — Sobre pure-play software o consulting</li>
+            </ul>
+
+            <p style="margin-top: 2rem; font-size: 1.2rem; color: #667eea; font-weight: 600;">
+                Análisis detallado de <strong>23 empresas</strong> que representan el estado actual del ecosistema
+            </p>
         </div>
-        
-        <div class="legend">
-            <div class="legend-title">Leyenda</div>
-            <div class="legend-grid">
-                <div class="legend-section">
-                    <div class="legend-section-title">Categorías</div>
-                    <div class="legend-item">
-                        <div class="legend-color cat-intelligence"></div>
-                        <span>Culture Intelligence</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color cat-coaching"></div>
-                        <span>AI Coaching</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color cat-learning"></div>
-                        <span>Live Learning</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color cat-performance"></div>
-                        <span>Performance Mgmt</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color cat-assessment"></div>
-                        <span>Assessment</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color cat-blended"></div>
-                        <span>Blended Consulting</span>
-                    </div>
+
+        <!-- Slide 2: Diagnóstico & Inteligencia -->
+        <div class="slide">
+            <h2>Diagnóstico & Inteligencia</h2>
+            <h3>La Batalla por la Data</h3>
+
+            <div class="companies-grid">
+                <div class="company category-intelligence">
+                    <strong>Culture Amp</strong><br>
+                    <span class="badge badge-unicorn">🦄 $1.5B</span><br>
+                    1.4B responses processed<br>
+                    Moat imposible de replicar
                 </div>
-                
-                <div class="legend-section">
-                    <div class="legend-section-title">Tamaño = Scale/Funding</div>
-                    <div class="legend-item">
-                        <div class="legend-size size-indicator-huge"></div>
-                        <span>Unicornio ($1B+)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-size size-indicator-large"></div>
-                        <span>Large ($50M-500M)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-size size-indicator-medium"></div>
-                        <span>Medium ($10M-50M)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-size size-indicator-small"></div>
-                        <span>Small/Emergente</span>
-                    </div>
+                <div class="company category-intelligence">
+                    <strong>Instill.ai</strong><br>
+                    <span class="badge badge-emerging">⚡ 2024</span><br>
+                    Real-time behavioral intelligence<br>
+                    Passive monitoring, no surveys
                 </div>
-                
-                <div class="legend-section">
-                    <div class="legend-section-title">Insights Clave</div>
-                    <div style="font-size: 11px; line-height: 1.6; color: #495057;">
-                        <strong>Q1 (Tech + Standalone):</strong> Requiere data masiva o tech breakthrough.<br/><br/>
-                        <strong>Q4 (Tech + Blended):</strong> Sweet spot—tech potencia sin canibalizare.<br/><br/>
-                        <strong>Flechas rojas:</strong> Intentos de migración (difícil ejecutar).
-                    </div>
+                <div class="company category-intelligence">
+                    <strong>Culture Factor Group</strong><br>
+                    <span class="badge badge-established">✅ Europa</span><br>
+                    €16-24K/año portal completo<br>
+                    Modelo blended rentable
                 </div>
+            </div>
+
+            <div class="insight-box">
+                <strong>Insight Clave</strong>
+                <p>El espacio se polariza: Culture Amp construyó moat con $257M funding vs. boutiques europeas rentables pero sin escala explosiva. Instill representa próxima generación: inteligencia continua vs. surveys trimestrales.</p>
+            </div>
+
+            <h3>Modelos Blended que Funcionan</h3>
+            <ul>
+                <li><strong>Denison</strong> — Tiered model: scorecard self-service + consulting profundo</li>
+                <li><strong>Walking the Talk</strong> — Tools solo dentro de engagements, no standalone</li>
+                <li><strong>Hogan Assessment</strong> — Pure-play 30+ años, 75% Fortune 500</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: Learning Platforms -->
+        <div class="slide">
+            <h2>Desarrollo & Aprendizaje</h2>
+            <h3>Learning Platforms: Gap Identificado</h3>
+
+            <div class="companies-grid">
+                <div class="company category-learning">
+                    <strong>The Optimism Company</strong><br>
+                    <span class="badge badge-established">✅ Simon Sinek</span><br>
+                    $299/año individual<br>
+                    250+ videos, pero B2C
+                </div>
+                <div class="company category-learning">
+                    <strong>Korn Ferry Learn</strong><br>
+                    <span class="badge badge-established">✅ Corporate</span><br>
+                    Enterprise platform<br>
+                    50+ años de IP
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <strong>Oportunidad Sin Resolver</strong>
+                <p><strong>Gap crítico:</strong> Ninguna boutique comparable ha construido bien una learning platform B2B enterprise enfocada en cultura. The Optimism Company es muy B2C/individual. Korn Ferry es gigante corporativo. Espacio abierto para quien lo tome bien.</p>
+            </div>
+
+            <h3>Por Qué es Difícil</h3>
+            <ul>
+                <li>Requiere content library completa desde día 1</li>
+                <li>Corporate buyers esperan sophistication enterprise</li>
+                <li>Monetización subscription requiere retention</li>
+                <li>Boutiques carecen capital para inversión inicial</li>
+            </ul>
+        </div>
+
+        <!-- Slide 4: Coaching at Scale -->
+        <div class="slide">
+            <h2>Coaching at Scale</h2>
+            <h3>Cuatro Tesis Estratégicas Diferentes</h3>
+
+            <div class="companies-grid">
+                <div class="company category-coaching">
+                    <strong>Torch.io</strong><br>
+                    <span class="badge badge-emerging">⚡ $50M+</span><br>
+                    Coaching + estrategia org<br>
+                    Program-centric, no matching
+                </div>
+                <div class="company category-coaching">
+                    <strong>Hone</strong><br>
+                    <span class="badge badge-emerging">⚡ $52M</span><br>
+                    Live learning + upskilling<br>
+                    $99-300/mes, 40% vs consulting
+                </div>
+                <div class="company category-coaching">
+                    <strong>BetterUp</strong><br>
+                    <span class="badge badge-unicorn">🦄 $1.73B</span><br>
+                    Scale puro, 17M data points<br>
+                    AI Coach enero 2025
+                </div>
+                <div class="company category-coaching">
+                    <strong>CoachHub</strong><br>
+                    <span class="badge badge-established">✅ Global</span><br>
+                    3,500+ coaches, 90 países<br>
+                    AIMY™ en MS Teams
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <strong>Diferenciación Crítica</strong>
+                <p><strong>Torch</strong> — Organizational intelligence, program-centric<br>
+                <strong>Hone</strong> — Live facilitation, group learning, upskilling masivo<br>
+                <strong>BetterUp/CoachHub</strong> — Individual scale, matching optimization</p>
             </div>
         </div>
-        
-        <!-- Tooltip -->
-        <div class="tooltip" id="tooltip">
-            <div class="tooltip-title"></div>
-            <div class="tooltip-desc"></div>
-            <div class="tooltip-tag"></div>
+
+        <!-- Slide 5: Tech-Enabled Consulting -->
+        <div class="slide">
+            <h2>Tech-Enabled Consulting</h2>
+            <h3>Las Transiciones Difíciles</h3>
+
+            <div class="insight-box">
+                <strong>MindGym: El Caso de Estudio</strong>
+                <p>£38.6M revenue después de 24 años. 700+ behavioral science assets codificados. <strong>Y sin embargo: 67% del revenue sigue siendo delivery humano</strong> — solo ~£4M es digital.</p>
+                <p>La transición de workshops tradicionales a tech-enabled es más difícil de lo que parece.</p>
+            </div>
+
+            <div class="companies-grid">
+                <div class="company category-blended">
+                    <strong>MindGym</strong><br>
+                    <span class="badge badge-established">✅ UK Public</span><br>
+                    £38.6M, pero 67% humano<br>
+                    Partnership con Yoodli 2024
+                </div>
+                <div class="company category-blended">
+                    <strong>Culture Partners</strong><br>
+                    <span class="badge badge-established">✅ McChrystal</span><br>
+                    Zodiak® 2.5M users<br>
+                    Tools solo en engagements
+                </div>
+                <div class="company category-blended">
+                    <strong>Table Group</strong><br>
+                    <span class="badge badge-established">✅ Lencioni</span><br>
+                    5-10 años de atraso digital<br>
+                    Dependencia Leadr partnership
+                </div>
+            </div>
+
+            <h3>Lecciones Aprendidas</h3>
+            <ul>
+                <li>Building tech core capabilities = challenge masivo para consultoras</li>
+                <li>Clientes prefieren workshops facilitados vs. self-serve digital</li>
+                <li>Costo de no invertir temprano: Table Group quedó atrás</li>
+                <li>Partnerships estratégicos pueden ayudar, pero pierdes control</li>
+            </ul>
+        </div>
+
+        <!-- Slide 6: Performance Management -->
+        <div class="slide">
+            <h2>Performance Management</h2>
+            <h3>La Nueva Frontera: Embedded vs. Standalone</h3>
+
+            <div class="companies-grid">
+                <div class="company category-performance">
+                    <strong>Taito.ai</strong><br>
+                    <span class="badge badge-emerging">⚡ 2024</span><br>
+                    Completamente en Slack<br>
+                    Feedback continuo embebido
+                </div>
+                <div class="company category-performance">
+                    <strong>15Five</strong><br>
+                    <span class="badge badge-established">✅ SaaS Maduro</span><br>
+                    Platform standalone<br>
+                    Commodity, diferencia en UX
+                </div>
+                <div class="company category-performance">
+                    <strong>Lattice</strong><br>
+                    <span class="badge badge-established">✅ SaaS Maduro</span><br>
+                    OKRs + Performance<br>
+                    Integrations con HRIS
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <strong>La Apuesta de Taito</strong>
+                <p>En lugar de crear "otra plataforma más", Taito vive completamente dentro de Slack. La próxima generación de herramientas no será standalone sino <strong>funcionalidad embebida donde la gente ya trabaja</strong>.</p>
+            </div>
+
+            <p>Contrasta radicalmente con 15Five, Lattice — plataformas que requieren login separado, adopción consciente, cambio de hábitos.</p>
+        </div>
+
+        <!-- Slide 7: Patrones Estratégicos -->
+        <div class="slide">
+            <h2>Patrones Estratégicos Identificados</h2>
+
+            <div class="insight-box">
+                <strong>1. Solo ~40% ha digitalizado verdaderamente</strong>
+                <p>De 15 consultoras comparables, solo 6 tienen productos digitales standalone. La mayoría mantiene consulting tradicional o tech-enabled humano-heavy.</p>
+            </div>
+
+            <div class="insight-box">
+                <strong>2. Assessments = puerta de entrada más común</strong>
+                <p>Todos los que digitalizaron empezaron por assessments. Razón: generan data que aumenta valor con escala (benchmarking).</p>
+            </div>
+
+            <div class="insight-box">
+                <strong>3. Blended Services domina sobre Pure SaaS</strong>
+                <p>MindGym después 24 años: solo 10% revenue digital. Denison lo hace bien: tiered model que no canibaliza premium consulting.</p>
+            </div>
+
+            <div class="insight-box">
+                <strong>4. AI + Behavioral Science = nuevo moat</strong>
+                <p>Culture Amp con 1.4B responses, BetterUp con 17M data points. Imposible replicar sin años de data collection. <strong>Ventaja de segundo movedor ya cerró.</strong></p>
+            </div>
+
+            <div class="insight-box">
+                <strong>5. Consolidación M&A brutal</strong>
+                <p>$2.5B+ en últimos 3 años: Microsoft/Glint $400M, Workday/Peakon $700M, Edenred/Reward Gateway $1.4B, BTS/Sounding Board 2025, Torch/Praxis Labs 2025.</p>
+            </div>
+
+            <div class="insight-box">
+                <strong>6. Learning Platforms B2B = oportunidad sin resolver</strong>
+                <p>Ninguna boutique comparable construyó bien una learning platform B2B enterprise enfocada en cultura.</p>
+            </div>
+        </div>
+
+        <!-- Slide 8: El Reloj Estratégico -->
+        <div class="slide">
+            <h2>El Reloj Estratégico</h2>
+            <h3>Timeline de Consolidación</h3>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2018-2021</div>
+                    <p>Wave de consolidación tech: Microsoft compra Glint ($400M), Workday adquiere Peakon ($700M). Big tech absorbe pure-plays de cultura.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2022-2023</div>
+                    <p>VC funding explota, unicornios emergen: BetterUp $1.73B valuation. Edenred paga $1.4B por Reward Gateway — la adquisición más grande del sector.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2024-2025</div>
+                    <p>AI coaches lanzan masivamente: BetterUp AI Coach (enero 2025), CoachHub AIMY™ en MS Teams (febrero 2025). M&A continúa: BTS/Sounding Board, Torch/Praxis Labs.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2026+</div>
+                    <p><strong>¿Agentic AI? ¿Consolidación de boutiques sin IP digital?</strong></p>
+                    <p style="color: #f5576c; font-weight: 600; margin-top: 1rem;">El tiempo para decidir se acorta. Table Group ya quedó 5-10 años atrás por no invertir temprano. Boutiques sin digital están siendo compradas.</p>
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <strong>Implicación Estratégica</strong>
+                <p>Los buyers están pagando premiums por tech, no por marcas de consulting puras. Las boutiques que no pueden/quieren construir, al menos necesitan partnerships inteligentes que agreguen capabilities sin perder control estratégico.</p>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="controls">
+            <button class="btn" id="prevBtn" onclick="changeSlide(-1)">← Anterior</button>
+            <div class="slide-indicator">
+                <span id="currentSlide">1</span> / <span id="totalSlides">8</span>
+            </div>
+            <button class="btn" id="nextBtn" onclick="changeSlide(1)">Siguiente →</button>
         </div>
     </div>
-    
+
     <script>
-        // Tooltip functionality
-        const tooltip = document.getElementById('tooltip');
-        const bubbles = document.querySelectorAll('.company-bubble');
-        
-        bubbles.forEach(bubble => {
-            bubble.addEventListener('mouseenter', (e) => {
-                const name = bubble.getAttribute('data-name');
-                const desc = bubble.getAttribute('data-desc');
-                const tag = bubble.getAttribute('data-tag');
-                
-                tooltip.querySelector('.tooltip-title').textContent = name;
-                tooltip.querySelector('.tooltip-desc').textContent = desc;
-                tooltip.querySelector('.tooltip-tag').textContent = tag;
-                
-                tooltip.classList.add('show');
-            });
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
             
-            bubble.addEventListener('mousemove', (e) => {
-                tooltip.style.left = (e.pageX + 20) + 'px';
-                tooltip.style.top = (e.pageY - 40) + 'px';
-            });
+            document.getElementById('currentSlide').textContent = currentSlide + 1;
             
-            bubble.addEventListener('mouseleave', () => {
-                tooltip.classList.remove('show');
-            });
+            // Update button states
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
         });
+
+        // Initialize
+        showSlide(0);
     </script>
 </body>
 </html>
